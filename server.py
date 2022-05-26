@@ -10,6 +10,17 @@ mydb = mysql.connector.connect(
 )
 mycursor = mydb.cursor()
 
+def account_exist(email):
+   sql="select email from email where email =%s"
+   value=(email,)
+   mycursor.execute(sql,value)
+   required_email=mycursor.fetchone()
+   if(required_email==None):
+      return False
+   else :
+      return True
+      
+
 def add(name,last_name,gender,age,SSn,email,password,position="patient"):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
    val=(SSn,email,password,position)
@@ -45,8 +56,11 @@ def sign_up():
       SSn=int(request.form['SSN'])
       email=request.form['email']
       password=request.form['pass']
-      add(name,last_name,gender,age,SSn,email,password)
-      return render_template('index.html')
+      if(account_exist(email)):
+         return render_template("sign_up.html")
+      else :
+         add(name,last_name,gender,age,SSn,email,password)
+         return render_template('index.html')
    else:
       return render_template('sign_up.html')
 
