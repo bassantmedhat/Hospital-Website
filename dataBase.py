@@ -28,8 +28,24 @@ mycursor.execute("CREATE TABLE CHECKED(NID INT , PID INT)")
 mycursor.execute("CREATE TABLE WRITE_FOR(DID INT ,MID INT)")
 mycursor.execute("CREATE TABLE TAKE(PID INT,MID INT) ")
 '''
-mycursor.execute("create table Email(SSn int,email varchar(256),password varchar(256),position varchar(256) )")
+# mycursor.execute("create table Email(SSn int,email varchar(256),password varchar(256),position varchar(256) )")
+def account_exist(email,password ):
+   sql="select email,password from email where email =%s"
+   value=(email,)
+   mycursor.execute(sql,value)
+   required_email=mycursor.fetchone()
+   if(required_email==None):
+      return False
+   else :
+      return True 
+print(account_exist("mas@gmail.com",'123456789'))
 
+# x="select password,email from email where email = %s"
+# value=('ms@gmail.com',)
+# mycursor.execute(x,value)
+# for x in mycursor.fetchall():
+#   print(x)
+#   print(len(x))
 
 
 # mycursor.execute("CREATE TABLE DEPENDENT() ")
