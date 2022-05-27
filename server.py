@@ -10,6 +10,16 @@ mydb = mysql.connector.connect(
 )
 mycursor = mydb.cursor()
 
+def check_password(email,password):
+   sql='select password from email where email =%s'
+   value=(email,)
+   mycursor.execute(sql,value)
+   email_password=mycursor.fetchone()
+   if(password==email_password):
+      return True 
+   else :
+      return False
+
 def account_exist(email):
    sql="select email from email where email =%s"
    value=(email,)
@@ -42,10 +52,14 @@ def add(name,last_name,gender,age,SSn,email,password,position="patient"):
 
 name=last_name=gender=password=email=''
 age=SSn=0
+
 app = Flask(__name__)
+
 @app.route('/',methods=['get','post'])
 def index():
    return render_template('index.html')
+
+
 @app.route('/sign_up',methods=['GET','POST'])
 def sign_up():
    if(request.method=='POST'):
@@ -64,8 +78,15 @@ def sign_up():
    else:
       return render_template('sign_up.html')
 
-# mycursor.execute("insert into Email(email,password) values(email,password)")
 
+@app.route('/sign_in',methods=['GET','POST'])
+def sign_in():
+   if(request.method=='POST'):
+      return render_template("add_member.html")
+   else :
+      return render_template('sign_up.html')
+
+# mycursor.execute("insert into Email(email,password) values(email,password)")
 # @app.route('/',methods=['get','post'])
 # def index():
 #    if(request.method=='POST'):
