@@ -15,12 +15,12 @@ def check_password(email,password):
    value=(email,)
    mycursor.execute(sql,value)
    email_password=mycursor.fetchone()
-   if(password==email_password):
+   if(password==''.join(email_password)):
       return True 
    else :
       return False
 
-def account_exist(email):
+def check_account(email):
    sql="select email from email where email =%s"
    value=(email,)
    mycursor.execute(sql,value)
@@ -70,7 +70,7 @@ def sign_up():
       SSn=int(request.form['SSN'])
       email=request.form['email']
       password=request.form['pass']
-      if(account_exist(email)):
+      if(check_account(email)):
          return render_template("sign_up.html")
       else :
          add(name,last_name,gender,age,SSn,email,password)
@@ -82,7 +82,13 @@ def sign_up():
 @app.route('/sign_in',methods=['GET','POST'])
 def sign_in():
    if(request.method=='POST'):
-      return render_template("add_member.html")
+      email=request.form['your_name']
+      password=request.form['your_pass']
+      print(password)
+      if(check_account(email) and check_password(email,password)):
+         return render_template("add_member.html")
+      else:
+         return render_template("sign_up.html")
    else :
       return render_template('sign_up.html')
 
