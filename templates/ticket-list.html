@@ -224,6 +224,7 @@
                                                 <th>Salary</th>
                                                 <th>Email</th>
                                                 <th>SSN</th>
+                                                <th>Remove</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -237,6 +238,9 @@
                                                 <td>Eric Pratt</td>
                                                 <td>2018/05/01</td>
                                                 <td>Fazz</td>
+                                                <td>Fazz</td>
+                                                <td>Fazz</td>
+                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
                                             </tr>
 
                                         </tbody>
@@ -249,9 +253,16 @@
                                                 <th>Created by</th>
                                                 <th>Date</th>
                                                 <th>Agent</th>
+                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
                                             </tr>
                                         </tfoot>
                                     </table>
+                                    <script>
+                                        function deleteRow(r) {
+                                          var i = r.parentNode.parentNode.rowIndex;
+                                          document.getElementById("zero_config").deleteRow(i);
+                                        }
+                                        </script>
                                 </div>
                             </div>
                         </div>
