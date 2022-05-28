@@ -90,7 +90,8 @@ def sign_in():
       if(check_account(email) and check_password(email,password)):
          return render_template("add_member.html")
       else:
-         return render_template("sign_up.html")
+         res = "Incorrect password or e-mail if you're not a user then you can just "
+         return render_template("sign_up.html", res=res)
    else :
       return render_template('sign_up.html')
 

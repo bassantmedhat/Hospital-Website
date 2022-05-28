@@ -50,11 +50,11 @@
                         <form method="POST" class="register-form" id="register-form" action="/sign_up">
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your First Name" />
+                                <input type="text" name="name" id="name" placeholder="Your First Name" required/>
                             </div>
                             <div class="form-group">
                                 <label for="l_name"><i class="zmdi zmdi-account2 material-icons-name"></i></label>
-                                <input type="text" name="last_name" id="l_name" placeholder="Your last Name" />
+                                <input type="text" name="last_name" id="l_name" placeholder="Your last Name" required/>
                                 <input type="text" name ="position" id="position" value="patient" hidden>
                             </div>
                             <div class="form-group">
@@ -66,23 +66,23 @@
                             </div>
                             <div class="form-group">
                                 <label for="age"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="number" name="age" id="age" placeholder=" your Age" />
+                                <input type="number" name="age" id="age" placeholder=" your Age" required/>
                             </div>
                             <div class="form-group">
                                 <label for="phone"><i class="zmdi zmdi-lock-outline3"></i></label>
-                                <input type="number" name="phone" id="phone" placeholder=" your phone" />
+                                <input type="number" name="phone" id="phone" placeholder=" your phone" required/>
                             </div>
                             <div class="form-group">
                                 <label for="SSN"><i class="zmdi zmdi-lock-outline2"></i></label>
-                                <input type="number" name="SSN" id="SSN" placeholder=" your SSN" />
+                                <input type="number" name="SSN" id="SSN" placeholder=" your SSN" required/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email" />
+                                <input type="email" name="email" id="email" placeholder="Your Email" required/>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password" />
+                                <input type="password" name="pass" id="pass" placeholder="Password" required />
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
@@ -111,14 +111,18 @@
                         <form method="POST" class="register-form" id="login-form" action="/sign_in">
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="user Name" />
+                                <input type="text" name="your_name" id="your_name" placeholder="user Name" required/>
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Password" />
+                                <input type="password" name="your_pass" id="your_pass" placeholder="Password" required />
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                                {% if res %}
+                                <p class="error" style="color: rgb(184, 35, 35);"><strong>Error:</strong> {{ res }} <a href="#" class="signup-image-link si"
+                                     style="position:relative; left:-114px; top:0px;" >sign_up</a>
+                                {% endif %}
                             </div>
                         </form>
                         <div class="social-login">
