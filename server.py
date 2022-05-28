@@ -75,7 +75,7 @@ def sign_up():
       if(check_account(email)):
          return render_template("sign_up.html")
       else :
-         # add(name,last_name,gender,age,SSn,email,password)
+         add(name,last_name,gender,age,SSn,email,password,position)
          return render_template('index.html')
    else:
       return render_template('sign_up.html')
@@ -93,6 +93,8 @@ def sign_in():
          return render_template("sign_up.html")
    else :
       return render_template('sign_up.html')
+
+
 
 # mycursor.execute("insert into Email(email,password) values(email,password)")
 # @app.route('/',methods=['get','post'])
