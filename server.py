@@ -70,10 +70,12 @@ def sign_up():
       SSn=int(request.form['SSN'])
       email=request.form['email']
       password=request.form['pass']
+      position=request.form["position"]
+      print(position)
       if(check_account(email)):
          return render_template("sign_up.html")
       else :
-         add(name,last_name,gender,age,SSn,email,password)
+         # add(name,last_name,gender,age,SSn,email,password)
          return render_template('index.html')
    else:
       return render_template('sign_up.html')
