@@ -79,6 +79,9 @@
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email" required/>
+                                {% if result %}
+                                <p class="error" style="color: rgb(184, 35, 35);">{{ result }}
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>

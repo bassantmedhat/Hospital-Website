@@ -4,7 +4,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="root",
-#   database="ICU"
+  database="ICU"
 )
 mycursor = mydb.cursor()
 # done
@@ -30,18 +30,22 @@ mycursor.execute("CREATE DATABASE ICU")
 # mycursor.execute("CREATE TABLE TAKE(PID INT,MID INT) ")
 
 '''
+# mycursor.execute("alter table patients add status varchar(256)")
+# def selectAll(ssn):
+#   sql1 = "select * from patients where pssn = %s"
+#   val1 = (ssn,)
+#   mycursor.execute(sql1, val1)
+#   print(mycursor.fetchone())
+# sql = "select ssn, position from email where email = %s"
+# val = ("mahmoudhamddy@gmail.com",)
+# mycursor.execute(sql, val)
+# posSsnList = mycursor.fetchone()
+# selectAll(posSsnList[0],)
+#print(mycursor.fetchone())
 
 
-
-
-
-
-
-
-
-
-
-
+# for x in mycursor.fetchall():
+#   print(x)
 # def account_exist(email,password ):
 #    sql="select email,password from email where email =%s"
 #    value=(email,)
