@@ -31,7 +31,7 @@ def check_account(email):
       return True
       
 
-def add(name,last_name,gender,age,SSn,email,password,position="patient"):
+def add(name,last_name,gender,age,SSn,email,password,phone,position="patient"):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
    val=(SSn,email,password,position)
    mycursor.execute(sql,val)
@@ -43,13 +43,42 @@ def add(name,last_name,gender,age,SSn,email,password,position="patient"):
       nurse="INSERT INTO nurses(nssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(nurse,value)
-   elif(position=='patient'):
-      patient="INSERT INTO patients(pssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
+   elif(position=="admin"):
+      admin="INSERT INTO nurses(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
       value=(SSn,name,last_name,age,gender)
+      mycursor.execute(admin,value)
+   elif(position=='patient'):
+      patient="INSERT INTO relatives(id,Fname,Lname,gender) VALUES (%s,%s,%s,%s)"
+      value=(SSn,name,last_name,gender)
       mycursor.execute(patient,value)
+      sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
+      val=(SSn,name, phone)
+      mycursor.execute(sql, val)
    mydb.commit()
 
-
+def select_page(email):
+   sql = "select ssn, position from email where email = %s"
+   val = (email,)
+   mycursor.execute(sql, val)
+   posSsnList = mycursor.fetchone()
+   position = posSsnList[1]
+   ssn = posSsnList[0]
+   out = [position]
+   if (position == 'patient' ):
+      sql = "select * from patients where id = %s"
+      value = (ssn,)
+      mycursor.execute(sql, value)
+      data = mycursor.fetchone()
+      print(ssn)
+      print(data)
+      out.append(data)
+      return(out)
+   elif (position == 'doctor' ):
+      return render_template('Patient.html')
+   elif (position == 'nurse' ):
+      return render_template('Patient.html')
+   else:
+      return render_template("add_member.html")
 name=last_name=gender=password=email=''
 age=SSn=0
 
@@ -71,11 +100,13 @@ def sign_up():
       email=request.form['email']
       password=request.form['pass']
       position=request.form["position"]
+      phone = request.form["phone"]
       print(position)
       if(check_account(email)):
-         return render_template("sign_up.html")
+         res = "Sorry but this email is used before"
+         return render_template("sign_up.html", result= res)
       else :
-         add(name,last_name,gender,age,SSn,email,password,position)
+         add(name, last_name, gender, age, SSn, email, password, phone, position)
          return render_template('index.html')
    else:
       return render_template('sign_up.html')
@@ -87,8 +118,30 @@ def sign_in():
       email=request.form['your_name']
       password=request.form['your_pass']
       print(password)
-      if(check_account(email) and check_password(email,password)):
-         return render_template("add_member.html")
+      if(check_account(email) and check_password(email,password) ):
+         data= select_page(email)
+         print(data)
+         print(data[0])
+         if (data[0] == 'patient'):
+               sql = "select * from relatives where id = %s"
+               val = (data[1][0],)
+               mycursor.execute(sql, val)
+               relData = mycursor.fetchone()
+               print(relData)
+               sql1 = "select phone from relative_phone where pid = %s  "
+               val1 = (data[1][0])
+               Rphone = mycursor.fetchone()
+               print(Rphone)
+               mycursor.execute(sql1, val1)
+               return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone, email=email)
+         elif (data[0] == 'doctor'):
+            return render_template('add_member.html', data=data[1])
+         elif (data[0] == 'nurse'):
+            return render_template('Nurse.html', data=data[1])
+         elif(data[0]=='admin'):
+            return render_template('admin_home.html', data=data[1])
+         else:
+            return render_template("add_member.html")
       else:
          res = "Incorrect password or e-mail if you're not a user then you can just "
          return render_template("sign_up.html", res=res)
