@@ -48,7 +48,7 @@ def add(name,last_name,gender,age,SSn,email,password,phone,position="patient"):
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(admin,value)
    elif(position=='patient'):
-      patient="INSERT INTO relatives(id,Fname,Lname,gender) VALUES (%s,%s,%s,%s)"
+      patient="INSERT INTO relatives(id,Fname,Lname,gender) VALUES ((select ID from patients where ID=%s),%s,%s,%s)"
       value=(SSn,name,last_name,gender)
       mycursor.execute(patient,value)
       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
@@ -128,20 +128,20 @@ def sign_in():
                mycursor.execute(sql, val)
                relData = mycursor.fetchone()
                print(relData)
-               sql1 = "select phone from relative_phone where pid = %s  "
-               val1 = (data[1][0])
+               sql1 = "select phone from relative_phone where pid = %s and Relative_name = %s "
+               val1 = (data[1][0], relData[1])
+               mycursor.execute(sql1, val1)
                Rphone = mycursor.fetchone()
                print(Rphone)
-               mycursor.execute(sql1, val1)
-               return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone, email=email)
+               return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
          elif (data[0] == 'doctor'):
-            return render_template('add_member.html', data=data[1])
+            return render_template('datatable.html', data=data[1])
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
             return render_template('admin_home.html', data=data[1])
          else:
-            return render_template("add_member.html")
+            return render_template("ADD.html")
       else:
          res = "Incorrect password or e-mail if you're not a user then you can just "
          return render_template("sign_up.html", res=res)

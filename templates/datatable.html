@@ -97,7 +97,7 @@
 					
 					
 					<li>
-						<a href="invoice.html" class="dropdown-toggle no-arrow">
+						<a href="/" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-invoice"></span><span class="mtext">Log out</span>
 						</a>
 					</li>
@@ -137,9 +137,10 @@
 								</tr>
 							</thead>
 							<tbody>
+							{% for r in data %}
 								<tr>
-									<td class="table-plus">Gloria F. Mead</td>
-									<td>25</td>
+									<td class="table-plus">{{r.2}} {{r.4}}</td>
+									<td>{{r.5}}</td>
 									<td>Sagittarius</td>
 									<td>2829 Trainer Avenue Peoria, IL 61602 </td>
 									<td>29-03-2018</td>
@@ -154,7 +155,8 @@
 										</div>
 									</td>
 								</tr>
-							
+								{% endfor %}
+
 							</tbody>
 						</table>
 					</div>
