@@ -74,11 +74,14 @@ def select_page(email):
       out.append(data)
       return(out)
    elif (position == 'doctor' ):
-      return render_template('Patient.html')
+      mycursor.execute("select * from patients")
+      for i in mycursor.fetchall():
+         out.append(i)
+      return (out)
    elif (position == 'nurse' ):
       return render_template('Patient.html')
    else:
-      return render_template("add_member.html")
+      return render_template("ADD.html")
 name=last_name=gender=password=email=''
 age=SSn=0
 
@@ -99,7 +102,8 @@ def sign_up():
       SSn=int(request.form['SSN'])
       email=request.form['email']
       password=request.form['pass']
-      position=request.form["position"]
+      # position=request.form["position"]
+      position = 'doctor'
       phone = request.form["phone"]
       print(position)
       if(check_account(email)):
@@ -119,7 +123,7 @@ def sign_in():
       password=request.form['your_pass']
       print(password)
       if(check_account(email) and check_password(email,password) ):
-         data= select_page(email)
+         data= select_page(email) #Retrive the data presented in the page for each email
          print(data)
          print(data[0])
          if (data[0] == 'patient'):
@@ -135,12 +139,14 @@ def sign_in():
                print(Rphone)
                return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
          elif (data[0] == 'doctor'):
-            return render_template('datatable.html', data=data[1])
+
+            return render_template('datatable.html', data=data[1:])
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
             return render_template('admin_home.html', data=data[1])
          else:
+
             return render_template("ADD.html")
       else:
          res = "Incorrect password or e-mail if you're not a user then you can just "
