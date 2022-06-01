@@ -137,16 +137,17 @@ def sign_in():
                mycursor.execute(sql1, val1)
                Rphone = mycursor.fetchone()
                print(Rphone)
-               return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
+               return render_template('Patient.html')
+               # return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
          elif (data[0] == 'doctor'):
-
-            return render_template('datatable.html', data=data[1:])
+            # return render_template('Patient.html')
+            # , data=data[1], relData=relData, Rphone=Rphone[0], email=email)
+             return render_template('admin_home.html', data=data[1:])
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
             return render_template('admin_home.html', data=data[1])
          else:
-
             return render_template("ADD.html")
       else:
          res = "Incorrect password or e-mail if you're not a user then you can just "
