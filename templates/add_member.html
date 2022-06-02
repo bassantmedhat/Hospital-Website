@@ -87,7 +87,7 @@
                             <div class="name">phone</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="numper" name="phone" required>
+                                    <input class="input--style-5" type="number" name="phone" required min="0">
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                             <div class="name">Age</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="text" name="age" required>
+                                    <input class="input--style-5" type="number" name="age" required min="0" max="120">
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,17 @@
                             <div class="name">SSN</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="numper" name="SSN" required>
+                                    <input class="input--style-5" type="number" name="SSN" required min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Hiring Date</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="date" name="hiring" required
+                                    style="padding:0; padding-left: 20px;
+                                    padding-right: 20px;">
                                 </div>
                             </div>
                         </div>
