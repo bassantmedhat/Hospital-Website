@@ -99,11 +99,11 @@ def sign_up():
       last_name=request.form['last_name']
       gender=request.form['gander']
       age=int(request.form['age'])
-      SSn=int(request.form['SSN'])
+      SSn=int(request.form['SSN'])#This is gotta be a patient's id not his ssn
       email=request.form['email']
       password=request.form['pass']
-      # position=request.form["position"]
-      position = 'doctor'
+      position=request.form["position"]
+      # position = 'doctor'
       phone = request.form["phone"]
       print(position)
       if(check_account(email)):
@@ -137,11 +137,9 @@ def sign_in():
                mycursor.execute(sql1, val1)
                Rphone = mycursor.fetchone()
                print(Rphone)
-               return render_template('Patient.html')
-               # return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
+               # return render_template('Patient.html')
+               return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
          elif (data[0] == 'doctor'):
-            # return render_template('Patient.html')
-            # , data=data[1], relData=relData, Rphone=Rphone[0], email=email)
              return render_template('admin_home.html', data=data[1:])
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
@@ -155,7 +153,9 @@ def sign_in():
    else :
       return render_template('sign_up.html')
 
-
+@app.route("/you_were_redirected")
+def redirected():
+    return render_template('admin_home.html')
 
 # mycursor.execute("insert into Email(email,password) values(email,password)")
 # @app.route('/',methods=['get','post'])
