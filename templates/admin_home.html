@@ -160,18 +160,18 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">medical staff</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="ticket-list.html"
+                        <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor') }}
                                 aria-expanded="false"><i class="fas fa-user-md"></i><span class="hide-menu">Show
                                     Doctors
                                 </span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-chat.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='nurse') }}
                                 aria-expanded="false"><i class="fas fa-medkit"></i><span class="hide-menu">Show
                                     nurses</span></a></li>
 
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">clients</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"href={{url_for("show_member",position='patient') }}
                                 aria-expanded="false"><i class="fas fa-bed"></i><span
                                     class="hide-menu">Patient</span></a>
                         </li>
@@ -232,7 +232,7 @@
                                         <p class="card-text">
                                             Co-worker to help the admin in his jop
                                         </p>
-                                        <a href="add_member.html" class="btn btn-primary">Add Vice Admin</a>
+                                        <a href={{url_for("add_member",type='member') }} class="btn btn-primary">Add Vice Admin</a>
                                     </div>
                                 </div>
                                 <!-- Card -->
@@ -248,7 +248,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title">Fill form to add Doctor</h4>
                                         <p class="card-text"> A new doctor has come to our Hospital</p>
-                                        <a href="add_member.html" class="btn btn-primary">Add Doctor</a>
+                                        <a href={{url_for("add_member",type='member') }} class="btn btn-primary">Add Doctor</a>
                                     </div>
                                 </div>
                                 <!-- Card -->
@@ -263,7 +263,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title">Fill form to add nurse</h4>
                                         <p class="card-text">A new nurse has come to our Hospital</p>
-                                        <a href="add_member.html" class="btn btn-primary">Add nurse</a>
+                                        <a href={{url_for("add_member",type='member') }} class="btn btn-primary">Add nurse</a>
                                     </div>
                                 </div>
                                 <!-- Card -->
@@ -279,7 +279,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title"> Fill form to add Patient</h4>
                                         <p class="card-text"> cretical case Patient needs our Help </p>
-                                        <a href="add_patient.html" class="btn btn-primary">Add Patient </a>
+                                        <a href={{url_for("add_member",type='sign_up') }} class="btn btn-primary">Add Patient </a>
                                     </div>
                                 </div>
                                 <!-- Card -->

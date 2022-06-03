@@ -31,7 +31,7 @@ def check_account(email):
       return True
       
 
-def add(name,last_name,gender,age,SSn,email,password,phone,position="patient"):
+def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patient"):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
    val=(SSn,email,password,position)
    mycursor.execute(sql,val)
@@ -44,15 +44,19 @@ def add(name,last_name,gender,age,SSn,email,password,phone,position="patient"):
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(nurse,value)
    elif(position=="admin"):
-      admin="INSERT INTO nurses(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
+      admin="INSERT INTO admin(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(admin,value)
    elif(position=='patient'):
-      patient="INSERT INTO relatives(id,Fname,Lname,gender) VALUES ((select ID from patients where ID=%s),%s,%s,%s)"
-      value=(SSn,name,last_name,gender)
+      sql = "select id from patients where pssn=%s"
+      val=(PSSn,)
+      mycursor.execute(sql, val)
+      id = mycursor.fetchone()[0]
+      patient="INSERT INTO relatives(id,SSn,Fname,Lname,gender) VALUES ((select ID from patients where ID=%s),%s,%s,%s,%s)"
+      value=(id,SSn,name,last_name,gender)
       mycursor.execute(patient,value)
       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
-      val=(SSn,name, phone)
+      val=(id,name, phone)
       mycursor.execute(sql, val)
    mydb.commit()
 
@@ -65,23 +69,42 @@ def select_page(email):
    ssn = posSsnList[0]
    out = [position]
    if (position == 'patient' ):
-      sql = "select * from patients where id = %s"
-      value = (ssn,)
+      sql='select id from relatives where SSn=%s'
+      value=(ssn,)
       mycursor.execute(sql, value)
+      id= mycursor.fetchone()
+      sql = "select * from patients where id = %s"
+      value = id
+      mycursor.execute(sql,value)
       data = mycursor.fetchone()
       print(ssn)
       print(data)
       out.append(data)
-      return(out)
-   elif (position == 'doctor' ):
-      mycursor.execute("select * from patients")
-      for i in mycursor.fetchall():
-         out.append(i)
-      return (out)
-   elif (position == 'nurse' ):
-      return render_template('Patient.html')
-   else:
-      return render_template("ADD.html")
+   return (out)
+
+def doctor_Patients(email):
+   sql = "select ssn, position from email where email = %s"
+   val = (email,)
+   mycursor.execute(sql, val)
+   posSsnList = mycursor.fetchone()
+   position = posSsnList[1]
+   ssn = posSsnList[0]
+   out = [position]
+   sql="select id from doctors where dssn=%s "
+   val=(ssn,)
+   mycursor.execute(sql, val)
+   id = mycursor.fetchone()
+   sql='select pid from examine where did=%s '
+   val=(id)
+   mycursor.execute(sql, val)
+   PData = mycursor.fetchall()
+   for i in PData:
+      sql= "select * from patients where id = %s"
+      val=(i,)
+      mycursor.execute(sql, val)
+      out.append(mycursor.fetchone())
+   return out
+
 name=last_name=gender=password=email=''
 age=SSn=0
 
@@ -99,7 +122,8 @@ def sign_up():
       last_name=request.form['last_name']
       gender=request.form['gander']
       age=int(request.form['age'])
-      SSn=int(request.form['SSN'])#This is gotta be a patient's id not his ssn
+      PSSn=int(request.form['PSSn'])#This is gotta be a patient's id not his ssn
+      SSn=int(request.form['SSN'])
       email=request.form['email']
       password=request.form['pass']
       position=request.form["position"]
@@ -108,9 +132,9 @@ def sign_up():
       print(position)
       if(check_account(email)):
          res = "Sorry but this email is used before"
-         return render_template("sign_up.html", result= res)
+         return render_template("sign_up.html", result=res)
       else :
-         add(name, last_name, gender, age, SSn, email, password, phone, position)
+         add(name, last_name, gender, age, SSn, PSSn, email, password, phone, position)
          return render_template('index.html')
    else:
       return render_template('sign_up.html')
@@ -123,6 +147,7 @@ def sign_in():
       password=request.form['your_pass']
       print(password)
       if(check_account(email) and check_password(email,password) ):
+         print("email_checked")
          data= select_page(email) #Retrive the data presented in the page for each email
          print(data)
          print(data[0])
@@ -140,22 +165,36 @@ def sign_in():
                # return render_template('Patient.html')
                return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
          elif (data[0] == 'doctor'):
-             return render_template('admin_home.html', data=data[1:])
+             data=doctor_Patients(email)
+             print(data)
+             return render_template('datatable.html', data=data[1:])
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
-            return render_template('admin_home.html', data=data[1])
-         else:
-            return render_template("ADD.html")
+            return render_template('admin_home.html')
+            # return render_template('admin_home.html', data=data[1])
       else:
+         print("not correct")
          res = "Incorrect password or e-mail if you're not a user then you can just "
          return render_template("sign_up.html", res=res)
    else :
       return render_template('sign_up.html')
 
-@app.route("/you_were_redirected")
-def redirected():
-    return render_template('admin_home.html')
+@app.route("/add_member/<type>")
+def add_member(type):
+   if(type=='sign_up'):
+      return render_template('sign_up.html')
+   else:
+      return render_template('add_member.html')
+
+@app.route('/show_member/<position>')
+def show_member(position):
+   if(position=='patient'):
+      return render_template('app-calendar.html')
+   elif(position=='nurse'):
+      return render_template('app-chat.html')
+   elif(position=='doctor'):
+      return render_template('ticket-list.html')
 
 # mycursor.execute("insert into Email(email,password) values(email,password)")
 # @app.route('/',methods=['get','post'])
