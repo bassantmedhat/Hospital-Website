@@ -94,19 +94,20 @@ def doctor_Patients(email):
    val=(ssn,)
    mycursor.execute(sql, val)
    id = mycursor.fetchone()
-   sql='select pid from examine where did=%s '
-   val=(id)
+   print(id)
+   sql='select Pid from examine where Did=%s '
+   val=(id[0],)#We used this notation [0] as  the id is returned in a tuple and mycursor can't execute a tuple instead you may use executemany
    mycursor.execute(sql, val)
    PData = mycursor.fetchall()
    for i in PData:
       sql= "select * from patients where id = %s"
-      val=(i,)
+      val=(i[0],)
       mycursor.execute(sql, val)
       out.append(mycursor.fetchone())
    return out
 
-name=last_name=gender=password=email=''
-age=SSn=0
+# name=last_name=gender=password=email=''
+# age=SSn=0 
 
 app = Flask(__name__)
 
@@ -122,7 +123,7 @@ def sign_up():
       last_name=request.form['last_name']
       gender=request.form['gander']
       age=int(request.form['age'])
-      PSSn=int(request.form['PSSn'])#This is gotta be a patient's id not his ssn
+      PSSn=int(request.form['PSSn'])
       SSn=int(request.form['SSN'])
       email=request.form['email']
       password=request.form['pass']
@@ -171,7 +172,18 @@ def sign_in():
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
-            return render_template('admin_home.html')
+            #Code for getting the name of the admin and render it on the page
+            sql="select ssn from email where email=%s"
+            val=(email,)
+            mycursor.execute(sql, val)
+            AdSsn=mycursor.fetchone()[0]
+            print(AdSsn)
+            sql='select fname,lname from admin where ssn=%s'
+            val=(AdSsn,)
+            mycursor.execute(sql, val)
+            AdName=mycursor.fetchone()
+            print(AdName)
+            return render_template('admin_home.html', Name=AdName)
             # return render_template('admin_home.html', data=data[1])
       else:
          print("not correct")
@@ -189,12 +201,25 @@ def add_member(type):
 
 @app.route('/show_member/<position>')
 def show_member(position):
+   print(position)
    if(position=='patient'):
-      return render_template('app-calendar.html')
+      sql = 'select * from patients'
+      mycursor.execute(sql)
+      PData=mycursor.fetchall()
+      return render_template('app-calendar.html', data=PData)
    elif(position=='nurse'):
-      return render_template('app-chat.html')
+      sql = 'select * from nurses'
+      mycursor.execute(sql)
+      NData = mycursor.fetchall()
+      return render_template('app-chat.html', data=NData)
    elif(position=='doctor'):
-      return render_template('ticket-list.html')
+      sql = 'select * from doctors'
+      mycursor.execute(sql)
+      DData = mycursor.fetchall()
+      return render_template('ticket-list.html', data=DData)
+   elif (position == 'admin'):
+      return render_template('admin_home.html', Name=['Mahmoud' ,'Hamdy'])
+   return render_template('index.html')
 
 # mycursor.execute("insert into Email(email,password) values(email,password)")
 # @app.route('/',methods=['get','post'])

@@ -111,7 +111,7 @@
                                 <img src="../static/assets/images/users/profile-pic.jpg" alt="user"
                                     class="rounded-circle" width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Nasser</span> <i data-feather="chevron-down"
+                                        class="text-dark">{{Name.0}}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -123,7 +123,7 @@
                                         class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><i data-feather="power"
+                                <a class="dropdown-item" href="/"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
                             </div>
@@ -156,22 +156,22 @@
                     <ul id="sidebarnav">
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="admin_home.html"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                    class="hide-menu">Admin</span></a></li>
+                                    class="hide-menu">{{Name.0}} {{Name.1}}</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">medical staff</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor') }}
+                        <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor')}}
                                 aria-expanded="false"><i class="fas fa-user-md"></i><span class="hide-menu">Show
                                     Doctors
                                 </span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='nurse') }}
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='nurse')}}
                                 aria-expanded="false"><i class="fas fa-medkit"></i><span class="hide-menu">Show
-                                    nurses</span></a></li>
+                                    Nurses</span></a></li>
 
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">clients</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"href={{url_for("show_member",position='patient') }}
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"href={{url_for("show_member",position='patient')}}
                                 aria-expanded="false"><i class="fas fa-bed"></i><span
                                     class="hide-menu">Patient</span></a>
                         </li>
@@ -194,7 +194,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Nasser</h3>
+                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning {{Name.0}} {{Name.1}}</h3>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">

@@ -52,7 +52,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="admin_home.html">
+                        <a href={{url_for("show_member",position='admin')}}>
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img src="../static/assets/images/welcome admin_free-file.png" alt="homepage"
@@ -121,7 +121,7 @@
                                         class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power"
+                                <a class="dropdown-item" href="/"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
                             </div>
@@ -152,24 +152,24 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="admin_home.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='admin')}}
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Admin</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">medical staff</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="ticket-list.html"
+                        <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor')}}
                                 aria-expanded="false"><i class="fas fa-user-md"></i><span class="hide-menu">Show
                                     Doctors
                                 </span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-chat.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='nurse')}}
                                 aria-expanded="false"><i class="fas fa-medkit"></i><span class="hide-menu">Show
                                     nurses</span></a></li>
 
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">clients</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='patient')}}
                                 aria-expanded="false"><i class="fas fa-bed"></i><span
                                     class="hide-menu">Patient</span></a>
                         </li>
@@ -206,52 +206,61 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <!-- basic table -->
 
-                                <div class="table-responsive">
+
+                                <div class="table-responsive card-body card">
                                     <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Frist name</th>
                                                 <th>Last name</th>
-                                                <th>Specialization</th>
-                                                <th>ID</th>
+<!--                                                <th>Specialization</th>-->
                                                 <th>Gender</th>
                                                 <th>Age</th>
-                                                <th>Salary</th>
-                                                <th>Email</th>
+<!--                                                <th>Salary</th>-->
+<!--                                                <th>Email</th>-->
                                                 <th>SSN</th>
+                                                <th>Entry Date</th>
+                                                <th>Visiting Hours</th>
+                                                <th>Status</th>
+                                                <th>Room Number</th>
+                                                <th>Cost</th>
                                                 <th>Remove</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        {% for r in data %}
                                             <tr>
-                                                <td><span class="badge badge-light-warning">In Progress</span></td>
-                                                <td><a href="javascript:void(0)" class="font-weight-medium link">Elegant
-                                                        Theme
-                                                        Side Menu Open OnClick</a></td>
-                                                <td><a href="javascript:void(0)" class="font-bold link">276377</a></td>
-                                                <td>Elegant Admin</td>
-                                                <td>Eric Pratt</td>
-                                                <td>2018/05/01</td>
-                                                <td>Fazz</td>
-                                                <td>Fazz</td>
-                                                <td>Fazz</td>
-                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+                                                <td><a href="javascript:void(0)" class="font-bold link">{{r.0}}</a></td>
+                                                <td><span class="badge badge-light-warning">{{r.2}}</span></td>
+<!--                                                <td><a href="javascript:void(0)" class="font-weight-medium link">Elegant-->
+<!--                                                        Theme-->
+<!--                                                        Side Menu Open OnClick</a></td>-->
+                                                <td><span class="badge badge-light-warning">{{r.4}}</span></td>
+                                                <td>{{r.6}}</td>
+                                                <td>{{r.5}}</td>
+                                                <td>{{r.1}}</td>
+                                                <td>{{r.8}}</td>
+                                                <td>{{r.7}}</td>
+                                                <td>{{r.12}}</td>
+                                                <td>{{r.10}}</td>
+                                                <td>{{r.11}}</td>
+                                                <td><input class="col-12 btn btn-primary" type="button" value="Delete" onclick="deleteRow(this)"></td>
                                             </tr>
-
+                                        {% endfor %}
                                         </tbody>
                                         <tfoot>
-                                            <tr>
-                                                <th>Status</th>
-                                                <th>Title</th>
-                                                <th>ID</th>
-                                                <th>Product</th>
-                                                <th>Created by</th>
-                                                <th>Date</th>
-                                                <th>Agent</th>
-                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
-                                            </tr>
+<!--                                            <tr>-->
+<!--                                                <th>Status</th>-->
+<!--                                                <th>Title</th>-->
+<!--                                                <th>ID</th>-->
+<!--                                                <th>Product</th>-->
+<!--                                                <th>Created by</th>-->
+<!--                                                <th>Date</th>-->
+<!--                                                <th>Agent</th>-->
+<!--                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>-->
+<!--                                            </tr>-->
                                         </tfoot>
                                     </table>
                                     <script>

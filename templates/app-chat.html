@@ -157,18 +157,18 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">medical staff</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="ticket-list.html"
+                        <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor')}}
                                 aria-expanded="false"><i class="fas fa-user-md"></i><span class="hide-menu">Show
                                     Doctors
                                 </span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-chat.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='nurse')}}
                                 aria-expanded="false"><i class="fas fa-medkit"></i><span class="hide-menu">Show
                                     nurses</span></a></li>
 
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">clients</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='patient')}}
                                 aria-expanded="false"><i class="fas fa-bed"></i><span
                                     class="hide-menu">Patient</span></a>
                         </li>
@@ -241,22 +241,22 @@
                                                 <td>Fazz</td>
                                                 <td>Fazz</td>
 
-                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+                                                <td><input class="col-12 btn btn-primary" type="button" value="Delete" onclick="deleteRow(this)"></td>
                                             </tr>
 
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Status</th>
-                                                <th>Title</th>
-                                                <th>ID</th>
-                                                <th>Product</th>
-                                                <th>Created by</th>
-                                                <th>Date</th>
-                                                <th>Agent</th>
-                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
-                                            </tr>
-                                        </tfoot>
+<!--                                        <tfoot>-->
+<!--                                            <tr>-->
+<!--                                                <th>Status</th>-->
+<!--                                                <th>Title</th>-->
+<!--                                                <th>ID</th>-->
+<!--                                                <th>Product</th>-->
+<!--                                                <th>Created by</th>-->
+<!--                                                <th>Date</th>-->
+<!--                                                <th>Agent</th>-->
+<!--                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>-->
+<!--                                            </tr>-->
+<!--                                        </tfoot>-->
                                     </table>
                                     <script>
                                         function deleteRow(r) {
