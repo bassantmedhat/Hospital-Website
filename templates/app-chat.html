@@ -42,7 +42,7 @@
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md">
-                <div class="navbar-header" data-logobg="skin6">
+                <div class="navbar-header" data-logobg="skin6" style="background-color: black;">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
                             class="ti-menu ti-close"></i></a>
@@ -51,7 +51,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href={{url_for("show_member",position='admin')}}>
+                        <a href={{url_for("show_member",position='admin' )}}>
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img src="../static/assets/images/welcome admin_free-file.png" alt="homepage"
@@ -147,7 +147,7 @@
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
-            <div class="scroll-sidebar" data-sidebarbg="skin6">
+            <div class="scroll-sidebar" data-sidebarbg="skin6" style="background-color: black;">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
@@ -155,7 +155,8 @@
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Admin</span></a></li>
                         <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">medical staff</span></li>
+                        <li class="nav-small-cap"><span class="hide-menu" style="color:rgb(246, 236, 236);">medical
+                                staff</span></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor'
                                 )}} aria-expanded="false"><i class="fas fa-user-md"></i><span class="hide-menu">Show
@@ -168,7 +169,8 @@
                                     nurses</span></a></li>
 
                         <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">clients</span></li>
+                        <li class="nav-small-cap"><span class="hide-menu"
+                                style="color:rgb(246, 236, 236);">clients</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
                                 href={{url_for("show_member",position='patient' )}} aria-expanded="false"><i
                                     class="fas fa-bed"></i><span class="hide-menu">Patient</span></a>
@@ -233,8 +235,10 @@
                                             <tr>
                                                 <!-- <td><span class="badge badge-light-warning">{{r.2}}</span></td> -->
                                                 <td><span class="font-weight-medium link">{{r.0}}</span></td>
-                                                <td><a href="javascript:void(0)" class="font-weight-medium link">{{r.2}}</a></td>
-                                                <td><a href="javascript:void(0)" class="font-bold font-weight-medium link">{{r.4}}</a></td>
+                                                <td><a href="javascript:void(0)"
+                                                        class="font-weight-medium link">{{r.2}}</a></td>
+                                                <td><a href="javascript:void(0)"
+                                                        class="font-bold font-weight-medium link">{{r.4}}</a></td>
                                                 <td>{{r.6}}</td>
                                                 <td>{{r.5}}</td>
                                                 <td>Fazz</td>
@@ -242,8 +246,7 @@
                                                 <td>{{r.1}}</td>
 
                                                 <td><input class="col-12 btn btn-primary" type="button" value="Delete"
-                                                        onclick="deleteRow(this)" 
-                                                        href="/delete_data"></td>                                                
+                                                        onclick="deleteRow(this)" href="/delete_data"></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
