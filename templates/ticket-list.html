@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../static/assets/images/favicon.png">
-    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
+    <title>Admin-doctors</title>
     <!-- This page css -->
     <!-- Custom CSS -->
     <link href="../static/dist/css/style.min.css" rel="stylesheet">
@@ -157,20 +157,21 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">medical staff</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor')}}
-                                aria-expanded="false"><i class="fas fa-user-md"></i><span class="hide-menu">Show
+                        <li class="sidebar-item"> <a class="sidebar-link" href={{url_for("show_member",position='doctor'
+                                )}} aria-expanded="false"><i class="fas fa-user-md"></i><span class="hide-menu">Show
                                     Doctors
                                 </span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='nurse')}}
-                                aria-expanded="false"><i class="fas fa-medkit"></i><span class="hide-menu">Show
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                                href={{url_for("show_member",position='nurse' )}} aria-expanded="false"><i
+                                    class="fas fa-medkit"></i><span class="hide-menu">Show
                                     nurses</span></a></li>
 
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">clients</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='patient')}}
-                                aria-expanded="false"><i class="fas fa-bed"></i><span
-                                    class="hide-menu">Patient</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                                href={{url_for("show_member",position='patient' )}} aria-expanded="false"><i
+                                    class="fas fa-bed"></i><span class="hide-menu">Patient</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -227,39 +228,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {% for r in data %}
+                                            {% for r in data %}
                                             <tr>
                                                 <td><span class="badge badge-light-warning">{{r.0}}</span></td>
-                                                <td><a href="javascript:void(0)" class="font-weight-medium link">{{r.2}}</a></td>
+                                                <td><a href="javascript:void(0)"
+                                                        class="font-weight-medium link">{{r.2}}</a></td>
                                                 <td><a href="javascript:void(0)" class="font-bold link">{{r.4}}</a></td>
                                                 <td>Specialist</td>
                                                 <td>{{r.5}}</td>
                                                 <td>{{r.6}}</td>
                                                 <td>Didn't added</td>
                                                 <td>{{r.1}}</td>
-                                                <td><input class="col-12 btn btn-primary" type="button" value="Delete" onclick="deleteRow(this)"></td>
+                                                <td><input class="col-12 btn btn-primary" type="button" value="Delete"
+                                                        onclick="deleteRow(this)"></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
-<!--                                        <tfoot>-->
-<!--                                            <tr>-->
-<!--                                                <th>Status</th>-->
-<!--                                                <th>Title</th>-->
-<!--                                                <th>ID</th>-->
-<!--                                                <th>Product</th>-->
-<!--                                                <th>Created by</th>-->
-<!--                                                <th>Date</th>-->
-<!--                                                <th>Agent</th>-->
-<!--                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>-->
-<!--                                            </tr>-->
-<!--                                        </tfoot>-->
+                                        <!--                                        <tfoot>-->
+                                        <!--                                            <tr>-->
+                                        <!--                                                <th>Status</th>-->
+                                        <!--                                                <th>Title</th>-->
+                                        <!--                                                <th>ID</th>-->
+                                        <!--                                                <th>Product</th>-->
+                                        <!--                                                <th>Created by</th>-->
+                                        <!--                                                <th>Date</th>-->
+                                        <!--                                                <th>Agent</th>-->
+                                        <!--                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>-->
+                                        <!--                                            </tr>-->
+                                        <!--                                        </tfoot>-->
                                     </table>
                                     <script>
                                         function deleteRow(r) {
-                                          var i = r.parentNode.parentNode.rowIndex;
-                                          document.getElementById("zero_config").deleteRow(i);
+                                            var i = r.parentNode.parentNode.rowIndex;
+                                            document.getElementById("zero_config").deleteRow(i);
                                         }
-                                        </script>
+                                    </script>
                                 </div>
                             </div>
                         </div>
