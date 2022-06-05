@@ -24,7 +24,7 @@ def check_account(email):
    sql="select email from email where email =%s"
    value=(email,)
    mycursor.execute(sql,value)
-   required_email=mycursor.fetchone()
+   required_email=mycursor.fetchone()[0]
    if(required_email==None):
       return False
    else :
@@ -104,6 +104,7 @@ def doctor_Patients(email):
       val=(i[0],)
       mycursor.execute(sql, val)
       out.append(mycursor.fetchone())
+   out.append(ssn)
    return out
 
 # name=last_name=gender=password=email=''
@@ -167,8 +168,12 @@ def sign_in():
                return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
          elif (data[0] == 'doctor'):
              data=doctor_Patients(email)
+             sql='select fname, lname from doctors where dssn=%s'
+             val=(data[-1],)
+             mycursor.execute(sql, val)
+             Dname=mycursor.fetchone()
              print(data)
-             return render_template('datatable.html', data=data[1:])
+             return render_template('datatable.html', data=data[1:], DName=Dname)
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
@@ -192,6 +197,7 @@ def sign_in():
    else :
       return render_template('sign_up.html')
 
+#this function for selecting the page for data
 @app.route("/add_member/<type>")
 def add_member(type):
    if(type=='sign_up'):
@@ -199,30 +205,42 @@ def add_member(type):
    else:
       return render_template('add_member.html')
 
-@app.route('/show_member/<position>')
+#This code is for generating the data of the members according to position
+@app.route('/show_member/<position>', methods=['GET','POST'])
 def show_member(position):
-   print(position)
-   if(position=='patient'):
-      sql = 'select * from patients'
-      mycursor.execute(sql)
-      PData=mycursor.fetchall()
-      return render_template('app-calendar.html', data=PData)
-   elif(position=='nurse'):
-      sql = 'select * from nurses'
-      mycursor.execute(sql)
-      NData = mycursor.fetchall()
-      print(NData)
-      return render_template('app-chat.html', data=NData)
-   elif(position=='doctor'):
-      sql = 'select * from doctors'
-      mycursor.execute(sql)
-      DData = mycursor.fetchall()
-      return render_template('ticket-list.html', data=DData)
-   elif (position == 'admin'):
-      return render_template('admin_home.html')
-   return render_template('index.html')
+   if (request.method == 'POST'):
+      return render_template('index.html')
+   else:
+      print(position)
+      if(position=='patient'):
+         sql = 'select * from patients'
+         mycursor.execute(sql)
+         PData=mycursor.fetchall()
+         return render_template('app-calendar.html', data=PData)
+      elif(position=='nurse'):
+         sql = 'select * from nurses'
+         mycursor.execute(sql)
+         NData = mycursor.fetchall()
+         print(NData)
+         return render_template('app-chat.html', data=NData)
+      elif(position=='doctor'):
+         sql = 'select * from doctors'
+         mycursor.execute(sql)
+         DData = mycursor.fetchall()
+         return render_template('ticket-list.html', data=DData)
+      elif (position == 'admin'):
+         return render_template('admin_home.html')
+      return render_template('index.html')
 
-app.route
+#Previnting to Cache the data like executing the back arrow
+@app.after_request
+def after_request(response):
+   response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+   response.headers["Pragma"] = "no-cache"
+   response.headers["Expires"] = "0"
+   return response
+
+#app.route
 
 # mycursor.execute("insert into Email(email,password) values(email,password)")
 # @app.route('/',methods=['get','post'])

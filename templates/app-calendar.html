@@ -121,7 +121,7 @@
                                         class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/"><i data-feather="power"
+                                <a class="dropdown-item" href="/sign_up"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
                             </div>
@@ -232,12 +232,9 @@
                                         <tbody>
                                         {% for r in data %}
                                             <tr>
-                                                <td><a href="javascript:void(0)" class="font-bold link">{{r.0}}</a></td>
-                                                <td><span class="badge badge-light-warning">{{r.2}}</span></td>
-<!--                                                <td><a href="javascript:void(0)" class="font-weight-medium link">Elegant-->
-<!--                                                        Theme-->
-<!--                                                        Side Menu Open OnClick</a></td>-->
-                                                <td><span class="badge badge-light-warning">{{r.4}}</span></td>
+                                                <td><span class="font-weight-medium link">{{r.0}}</span></td>
+                                                <td><a href="javascript:void(0)" class="font-weight-medium link">{{r.2}}</a></td>
+                                                <td><a href="javascript:void(0)" class="font-bold font-weight-medium link">{{r.4}}</a></td>
                                                 <td>{{r.6}}</td>
                                                 <td>{{r.5}}</td>
                                                 <td>{{r.1}}</td>
