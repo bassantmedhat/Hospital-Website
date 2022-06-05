@@ -51,7 +51,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="admin_home.html">
+                        <a href={{url_for("show_member",position='admin')}}>
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img src="../static/assets/images/welcome admin_free-file.png" alt="homepage"
@@ -229,23 +229,29 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for r in data %}
                                             <tr>
-                                                <td><span class="badge badge-light-warning">In Progress</span></td>
-                                                <td><a href="javascript:void(0)" class="font-weight-medium link">Elegant
-                                                        Theme
-                                                        Side</a></td>
+                                                <!-- <td><span class="badge badge-light-warning">{{r.2}}</span></td> -->
+                                                <td><a href="javascript:void(0)" class="font-weight-medium link">
+                                                    {{r.2}}
+                                                </a></td>
+
+                                                <td><a href="javascript:void(0)" class="font-weight-medium link">
+                                                    {{r.4}}
+                                                </a></td>
                                                 <td><a href="javascript:void(0)" class="font-bold link">276377</a></td>
-                                                <td>Elegant Admin</td>
-                                                <td>Eric Pratt</td>
-                                                <td>2018/05/01</td>
+                                                <td>{{r.0}}</td>
+                                                <td>{{r.6}}</td>
+                                                <td>{{r.5}}</td>
                                                 <td>Fazz</td>
                                                 <td>Fazz</td>
-                                                <td>Fazz</td>
+                                                <td>{{r.1}}</td>
 
                                                 <td><input class="col-12 btn btn-primary" type="button" value="Delete"
-                                                        onclick="deleteRow(this)"></td>
+                                                        onclick="deleteRow(this)" 
+                                                        href="/delete_data"></td>                                                
                                             </tr>
-
+                                            {% endfor %}
                                         </tbody>
                                         <!--                                        <tfoot>-->
                                         <!--                                            <tr>-->

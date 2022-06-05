@@ -107,7 +107,7 @@ def doctor_Patients(email):
    return out
 
 # name=last_name=gender=password=email=''
-# age=SSn=0 
+# age=SSn=0
 
 app = Flask(__name__)
 
@@ -172,7 +172,7 @@ def sign_in():
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
-            #Code for getting the name of the admin and render it on the page
+               #Code for getting the name of the admin and render it on the page
             sql="select ssn from email where email=%s"
             val=(email,)
             mycursor.execute(sql, val)
@@ -183,7 +183,7 @@ def sign_in():
             mycursor.execute(sql, val)
             AdName=mycursor.fetchone()
             print(AdName)
-            return render_template('admin_home.html', Name=AdName)
+            return render_template('admin_home.html', Name=AdName[0]+' '+AdName[1])
             # return render_template('admin_home.html', data=data[1])
       else:
          print("not correct")
@@ -211,6 +211,7 @@ def show_member(position):
       sql = 'select * from nurses'
       mycursor.execute(sql)
       NData = mycursor.fetchall()
+      print(NData)
       return render_template('app-chat.html', data=NData)
    elif(position=='doctor'):
       sql = 'select * from doctors'
@@ -218,8 +219,10 @@ def show_member(position):
       DData = mycursor.fetchall()
       return render_template('ticket-list.html', data=DData)
    elif (position == 'admin'):
-      return render_template('admin_home.html', Name=['Mahmoud' ,'Hamdy'])
+      return render_template('admin_home.html')
    return render_template('index.html')
+
+app.route
 
 # mycursor.execute("insert into Email(email,password) values(email,password)")
 # @app.route('/',methods=['get','post'])

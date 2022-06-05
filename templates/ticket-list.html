@@ -51,7 +51,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="admin_home.html">
+                        <a href={{url_for("show_member",position='admin')}} >
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img src="../static/assets/images/welcome admin_free-file.png" alt="homepage"
@@ -108,7 +108,7 @@
                                 <img src="../static/assets/images/users/profile-pic.jpg" alt="user"
                                     class="rounded-circle" width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Nasser</span> <i data-feather="chevron-down"
+                                        class="text-dark">Salah</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -151,7 +151,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="admin_home.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href={{url_for("show_member",position='admin')}}
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Admin</span></a></li>
                         <li class="list-divider"></li>
