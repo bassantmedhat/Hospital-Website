@@ -48,6 +48,16 @@ def Check_SSN(ssn):
    else:
       return False
 
+def check_room(room_no,Pssn):
+   sql='select room from patients where pssn=%s'
+   value=(Pssn,)
+   mycursor.execute(sql,value)
+   result=mycursor.fetchone()
+   if(result==None):
+      return True
+   else:
+      return False 
+
 def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patient"):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
    val=(SSn,email,password,position)
@@ -83,42 +93,6 @@ def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patien
    mydb.commit()
 
 
-
-# def add(name,last_name,gender,age,SSn,PSSn,email,password,phone, entry_date, Room_number,position="relative"):
-#    print('entered add')
-#    if(position =='patient'):
-#       print('enter patient')
-#       patient="INSERT INTO patients(pssn,Fname,Lname,age,gender,entry_date) VALUES (%s,%s,%s,%s, %s, %s)"
-#       val=(SSn,name,last_name,age,gender, entry_date)
-#       mydb.commit()
-#    else:
-#     sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
-#     val=(SSn,email,password,position)
-#     mycursor.execute(sql,val)
-#     if(position=="doctor"):
-#       doctor="INSERT INTO doctors (dssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
-#       value=(SSn,name,last_name,age,gender)
-#       mycursor.execute(doctor,value)
-#     elif(position=="nurse"):
-#       nurse="INSERT INTO nurses(nssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
-#       value=(SSn,name,last_name,age,gender)
-#       mycursor.execute(nurse,value)
-#     elif(position=="admin"):
-#       admin="INSERT INTO admin(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
-#       value=(SSn,name,last_name,age,gender)
-#       mycursor.execute(admin,value)
-#     elif(position=='relative'):
-#       sql = "select id from patients where pssn=%s"
-#       val=(PSSn,)
-#       mycursor.execute(sql, val)
-#       id = mycursor.fetchone()[0]
-#       patient="INSERT INTO relatives(id,SSn,Fname,Lname,gender) VALUES ((select ID from patients where ID=%s),%s,%s,%s,%s)"
-#       value=(id,SSn,name,last_name,gender)
-#       mycursor.execute(patient,value)
-#       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
-#       val=(id,name, phone)
-#       mycursor.execute(sql, val)
-#    mydb.commit()
 
 def select_page(email):
    sql = "select ssn, position from email where email = %s"
@@ -167,8 +141,14 @@ def doctor_Patients(email):
    out.append(ssn)
    return out
 
-# name=last_name=gender=password=email=''
-# age=SSn=0
+def nurse_patients(id):
+   sql='select Patients.PSSn,patients.Fname,patients.Lname,patients.age,patients.gender,patients.entry_date,prescription,patients.room from nurses join checked on Id=Nid join patients on Pid=patients.id join write_prescription_for on patients.id=write_prescription_for.Pid where nurses.id=%s'
+   value=(id,)
+   mycursor.execute(sql,value)
+   Data=mycursor.fetchall()
+   return Data 
+
+
 
 app = Flask(__name__)
 
@@ -241,7 +221,21 @@ def sign_in():
              else:
                return render_template('datatable.html', data=data[1:], DName=Dname)
          elif (data[0] == 'nurse'):
-            return render_template('Nurse.html', data=data[1])
+            sql='select ssn from email where email=%s'
+            value=(email,)
+            mycursor.execute(sql,value)
+            NSSn=mycursor.fetchone()
+            print(NSSn)
+            sql='select fname,lname,id from nurses where Nssn=%s'
+            value=(NSSn)
+            mycursor.execute(sql,value)
+            nurse_data=mycursor.fetchone()
+            Name=nurse_data[0]+' '+nurse_data[1]
+            id=nurse_data[2]
+            patients_data=nurse_patients(id)
+            print(patients_data)
+            return render_template('Nurse.html',Name=Name,data=patients_data)
+         
          elif(data[0]=='admin'):
                #Code for getting the name of the admin and render it on the page
             sql="select ssn from email where email=%s"
@@ -297,15 +291,21 @@ def add_patient():
       room_no = request.form['room_no']
       gender=request.form['gander']
       if(Check_SSN(PSSn)):
+         if(not(check_room(room_no,PSSn))):
+            res = "Sorry this room is used"
+            return render_template("addpatientform.html", res=res)
+
          patient_data(name,last_name,Doctor_id,disease,entry_date,PSSn,age,room_no,gender)
          print('done successfully')
-         return render_template('admin_home.html',Name=AdminName[0]+' ' + AdminName[1])
+         return render_template('admin_home.html',Name=AdminName[0]+' '+AdminName[1])
       else:
          print("not correct")
          res = "This SSN is already exist "
          return render_template("addpatientform.html", res=res)
+
+
 def patient_data(name,last_name,Doc_id,disease,entry_date,PSSn,age,room_no,gender):
-   sql='insert into patients(Fname,Lname,PSSn,age,gender,entry_date,room_number) values(%s,%s,%s,%s,%s,%s,%s)'
+   sql='insert into patients(Fname,Lname,PSSn,age,gender,entry_date,room) values(%s,%s,%s,%s,%s,%s,%s)'
    value=(name,last_name,PSSn,age,gender,entry_date, room_no)
    mycursor.execute(sql,value)
    Id='select id from patients where pssn=%s'

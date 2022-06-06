@@ -52,7 +52,7 @@
 						<span class="user-icon">
 							<img src="../static/vendor/images/photo1.jpg" alt="">
 						</span>
-						<span class="user-name">{{DName.0}} {{DName.1}}</span>
+						<span class="user-name">{{Name}}</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
@@ -116,7 +116,7 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">{{DName.0}} Data Table</h4>
+						<h4 class="text-blue h4">{{Name}} Data Table</h4>
 						</div>
 					<div class="pb-20">
 						<table class="table stripe">
@@ -131,20 +131,20 @@
 									<th>Room no.</th>
 									<th>Entry_Date</th>
 									<th class="datatable-nosort">Modify</th>
-									<th class="datatable-nosort">Write prescription</th>
+									<th>prescriptions</th>
 								</tr>
 							</thead>
 							<tbody>
 							{% for r in data %}
 								<tr>
-									<td>{{r.1}}</td>
+									<td>{{r.0}}</td>
+									<td class="table-plus">{{r.1}} </td>
 									<td class="table-plus">{{r.2}} </td>
-									<td class="table-plus">{{r.4}} </td>
+									<td>{{r.3}}</td>
+									<td>{{r.4}}</td>
+									<td>none</td>
+									<td>{{r.7}}</td>
 									<td>{{r.5}}</td>
-									<td>{{r.6}}</td>
-									<td>{{r.12}} </td>
-									<td>{{r.10}}</td>
-									<td>{{r.8}}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -155,16 +155,7 @@
 											</div>
 										</div>
 									</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="icon-copy dw dw-notepad-2"></i> Add Prescription</a>
-											</div>
-										</div>
-									</td>
+									<td>{{r.6}}</td>
 								</tr>
 								{% endfor %}
 
