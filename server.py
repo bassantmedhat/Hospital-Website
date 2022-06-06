@@ -33,7 +33,7 @@ def check_account(email):
       return True
       
 
-def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patient"):
+def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,visiting_hours, entry_date, Room_number,position="relative",):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
    val=(SSn,email,password,position)
    mycursor.execute(sql,val)
@@ -49,7 +49,7 @@ def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patien
       admin="INSERT INTO admin(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(admin,value)
-   elif(position=='patient'):
+   elif(position=='relative'):
       sql = "select id from patients where pssn=%s"
       val=(PSSn,)
       mycursor.execute(sql, val)
@@ -60,6 +60,9 @@ def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patien
       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
       val=(id,name, phone)
       mycursor.execute(sql, val)
+   elif(position =='patient'):
+      patient="INSERT INTO patient(pssn,Fname,Lname,age,gender, visiting_hours, entry_date, Room_number) VALUES (%s,%s,%s,%s,%s, %s, %s, %s)"
+      val=(SSn,name,last_name,age,gender,visiting_hours, entry_date, Room_number)
    mydb.commit()
 
 def select_page(email):
@@ -202,12 +205,12 @@ def sign_in():
       return render_template('sign_up.html')
 
 #this function for selecting the page for data
-@app.route("/add_member/<type>")
-def add_member(type):
-   if(type=='sign_up'):
-      return render_template('sign_up.html')
-   else:
-      return render_template('add_member.html')
+# @app.route("/add_member/<type>", methods=['POST', 'GET'])
+# def add_member(type):
+#    if(type=='sign_up'):
+#       return render_template('addpatientform.html')
+#    else:
+#       return render_template('add_member.html')
 
 #This code is for generating the data of the members according to position
 @app.route('/show_member/<position>', methods=['GET','POST'])
@@ -294,6 +297,28 @@ def after_request(response):
 # @app.route('/main')
 # def main():
 #    return render_template('/main.html')
+@app.route("/add_member/<type>", methods=['POST', 'GET'])
+def add_member(type):
+   print('I"M in')
+   if (request.method =='POST'):
+      if (type == 'sign_up'):
+         print('Entered sign-up')
+         name = request.form['name']
+         last_name = request.form['last_name']
+         Rname = request.form['Rname']
+         Remail = request.form['email']
+         Rlast_name = request.form['Rlast_name']
+         entryDate = request.form['entry']
+         ssn = request.form['ssn']
+         age = request.form['age']
+         room_no = request.form['room_no']
+         gender=request.form['gender']
+         add(name, last_name, gender, age, ssn, None, None, None, None, None, entryDate, room_no, position='patient')
+         return render_template('admin_home.html')
+   elif(type=='member'):
+         return render_template('add_member.html')
+   else:
+      return render_template('addpatientform.html')
 
 if __name__ == '__main__':
    app.run()
