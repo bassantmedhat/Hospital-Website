@@ -35,7 +35,8 @@
                     <h2 class="title">new friend</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="/sign_up">
+                    <form method="POST" action="/add_patient">
+                    <!-- <form method="POST" href={{url_for("add_member",type='sign_up' )}}></form> -->
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -189,7 +190,6 @@
                         </div> -->
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
-                            <a href="admin_home.html">
                                 <button class="btn btn--radius-2 btn--red" type="button"
                                     style="margin-left: 30%;">back</button>
                             </a>

@@ -6,7 +6,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="root",
-  database="ICU"
+  database="icu"
 )
 mycursor = mydb.cursor()
 AdminName = []
@@ -26,14 +26,14 @@ def check_account(email):
    sql="select email from email where email =%s"
    value=(email,)
    mycursor.execute(sql,value)
-   required_email=mycursor.fetchone()[0]
+   required_email=mycursor.fetchone()
    if(required_email==None):
       return False
    else :
       return True
-      
 
-def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,visiting_hours, entry_date, Room_number,position="relative",):
+
+def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patient"):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
    val=(SSn,email,password,position)
    mycursor.execute(sql,val)
@@ -42,14 +42,14 @@ def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,visiting_hours, 
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(doctor,value)
    elif(position=="nurse"):
-      nurse="INSERT INTO nurses(nssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
+      nurse="INSERT INTO nurses (Nssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(nurse,value)
    elif(position=="admin"):
       admin="INSERT INTO admin(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(admin,value)
-   elif(position=='relative'):
+   elif(position=='patient'):
       sql = "select id from patients where pssn=%s"
       val=(PSSn,)
       mycursor.execute(sql, val)
@@ -60,10 +60,45 @@ def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,visiting_hours, 
       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
       val=(id,name, phone)
       mycursor.execute(sql, val)
-   elif(position =='patient'):
-      patient="INSERT INTO patient(pssn,Fname,Lname,age,gender, visiting_hours, entry_date, Room_number) VALUES (%s,%s,%s,%s,%s, %s, %s, %s)"
-      val=(SSn,name,last_name,age,gender,visiting_hours, entry_date, Room_number)
    mydb.commit()
+
+
+
+# def add(name,last_name,gender,age,SSn,PSSn,email,password,phone, entry_date, Room_number,position="relative"):
+#    print('entered add')
+#    if(position =='patient'):
+#       print('enter patient')
+#       patient="INSERT INTO patients(pssn,Fname,Lname,age,gender,entry_date) VALUES (%s,%s,%s,%s, %s, %s)"
+#       val=(SSn,name,last_name,age,gender, entry_date)
+#       mydb.commit()
+#    else:
+#     sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
+#     val=(SSn,email,password,position)
+#     mycursor.execute(sql,val)
+#     if(position=="doctor"):
+#       doctor="INSERT INTO doctors (dssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
+#       value=(SSn,name,last_name,age,gender)
+#       mycursor.execute(doctor,value)
+#     elif(position=="nurse"):
+#       nurse="INSERT INTO nurses(nssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
+#       value=(SSn,name,last_name,age,gender)
+#       mycursor.execute(nurse,value)
+#     elif(position=="admin"):
+#       admin="INSERT INTO admin(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
+#       value=(SSn,name,last_name,age,gender)
+#       mycursor.execute(admin,value)
+#     elif(position=='relative'):
+#       sql = "select id from patients where pssn=%s"
+#       val=(PSSn,)
+#       mycursor.execute(sql, val)
+#       id = mycursor.fetchone()[0]
+#       patient="INSERT INTO relatives(id,SSn,Fname,Lname,gender) VALUES ((select ID from patients where ID=%s),%s,%s,%s,%s)"
+#       value=(id,SSn,name,last_name,gender)
+#       mycursor.execute(patient,value)
+#       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
+#       val=(id,name, phone)
+#       mycursor.execute(sql, val)
+#    mydb.commit()
 
 def select_page(email):
    sql = "select ssn, position from email where email = %s"
@@ -146,6 +181,28 @@ def sign_up():
    else:
       return render_template('sign_up.html')
 
+@app.route('/add_patient',methods=['GET','POST'])
+def add_patient():
+   if(request.method=='POST'):
+      global AdminName
+      name = request.form['name']
+      last_name = request.form['last_name']
+      Rname = request.form['Rname']
+      Remail = request.form['email']
+      Rlast_name = request.form['Rlast_name']
+      entry_date = request.form['entry']
+      PSSn = request.form['SSN']
+      age = request.form['age']
+      room_no = request.form['room_no']
+      gender=request.form['gander']
+      patient_data(name,last_name,Rname,Remail,Rlast_name,entry_date,PSSn,age,room_no,gender)
+      print('done successfully')
+      return render_template('admin_home.html',Name=AdminName)
+def patient_data(name,last_name,Rname,Remail,Rlast_name,entry_date,PSSn,age,room_no,gender):
+   sql='insert into patients(Fname,Lname,PSSn,age,gender,entry_date) values(%s,%s,%s,%s,%s,%s)'
+   value=(name,last_name,PSSn,age,gender,entry_date)
+   mycursor.execute(sql,value)
+   mydb.commit()
 
 @app.route('/sign_in',methods=['GET','POST'])
 def sign_in():
@@ -189,6 +246,7 @@ def sign_in():
             mycursor.execute(sql, val)
             AdSsn=mycursor.fetchone()[0]
             print(AdSsn)
+            print('123')
             sql='select fname,lname from admin where ssn=%s'
             val=(AdSsn,)
             mycursor.execute(sql, val)
@@ -205,12 +263,12 @@ def sign_in():
       return render_template('sign_up.html')
 
 #this function for selecting the page for data
-# @app.route("/add_member/<type>", methods=['POST', 'GET'])
-# def add_member(type):
-#    if(type=='sign_up'):
-#       return render_template('addpatientform.html')
-#    else:
-#       return render_template('add_member.html')
+@app.route("/add_member/<type>", methods=['POST', 'GET'])
+def add_member(type):
+   if(type=='sign_up'):
+      return render_template('addpatientform.html')
+   else:
+      return render_template('add_member.html')
 
 #This code is for generating the data of the members according to position
 @app.route('/show_member/<position>', methods=['GET','POST'])
@@ -258,7 +316,7 @@ def show_member(position):
          PData=mycursor.fetchall()
          return render_template('app-calendar.html', data=PData)
       elif(position=='nurse'):
-         sql = 'select * from nurses'
+         sql = 'select * from nurses left outer join email on Nssn=SSn'
          mycursor.execute(sql)
          NData = mycursor.fetchall()
          print(NData)
@@ -297,28 +355,31 @@ def after_request(response):
 # @app.route('/main')
 # def main():
 #    return render_template('/main.html')
-@app.route("/add_member/<type>", methods=['POST', 'GET'])
-def add_member(type):
-   print('I"M in')
-   if (request.method =='POST'):
-      if (type == 'sign_up'):
-         print('Entered sign-up')
-         name = request.form['name']
-         last_name = request.form['last_name']
-         Rname = request.form['Rname']
-         Remail = request.form['email']
-         Rlast_name = request.form['Rlast_name']
-         entryDate = request.form['entry']
-         ssn = request.form['ssn']
-         age = request.form['age']
-         room_no = request.form['room_no']
-         gender=request.form['gender']
-         add(name, last_name, gender, age, ssn, None, None, None, None, None, entryDate, room_no, position='patient')
-         return render_template('admin_home.html')
-   elif(type=='member'):
-         return render_template('add_member.html')
-   else:
-      return render_template('addpatientform.html')
+
+# @app.route("/add_member/<type>", methods=['POST', 'GET'])
+# def add_member(type):
+#    print('I"M in')
+#    if (request.method =='POST'):
+#       print(type)
+#       if (type == 'sign_up'):
+#          print('Entered sign-up')
+#          name = request.form['name']
+#          last_name = request.form['last_name']
+#          Rname = request.form['Rname']
+#          Remail = request.form['email']
+#          Rlast_name = request.form['Rlast_name']
+#          entryDate = request.form['entry']
+#          ssn = request.form['ssn']
+#          age = request.form['age']
+#          room_no = request.form['room_no']
+#          gender=request.form['gender']
+#          add(name, last_name, gender, age, ssn, None, None, None, None, None, entryDate, room_no, position='patient')
+#          return render_template('admin_home.html')
+#    elif(type=='member'):
+#          return render_template('add_member.html')
+#    else:
+#       return render_template('addpatientform.html')
+
 
 if __name__ == '__main__':
    app.run()
