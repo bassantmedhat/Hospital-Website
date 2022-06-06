@@ -1,200 +1,304 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<!-- Basic Page Info -->
-	<meta charset="utf-8">
-	<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+  <head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
 
-	<!-- Site favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="../static/vendor/images/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="../static/vendor/images/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="../static/vendor/images/favicon-16x16.png">
+    <!-- Site favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../static/vendor/images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../static/vendor/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../static/vendor/images/favicon-16x16.png"
+    />
 
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Specific Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
 
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/styles/core.css">
-	<link rel="stylesheet" type="text/css" href="../static/vendor/styles/icon-font.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/datatables/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/datatables/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/vendor/styles/style.css">
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/vendor/styles/core.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/vendor/styles/icon-font.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/datatables/css/dataTables.bootstrap4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/datatables/css/responsive.bootstrap4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/vendor/styles/style.css"
+    />
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-		gtag('config', 'UA-119386393-1');
-	</script>
-</head>
-<body>
-	
-	<div class="header">
-		<div class="header-left">
-			<div class="menu-icon dw dw-menu"></div>
-			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
-			<div class="header-search">
-				<form>
-					
-				</form>
-			</div>
-		</div>
-		<div class="header-right">
-			
-			<div class="user-info-dropdown">
-				<div class="dropdown">
-					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-						<span class="user-icon">
-							<img src="../static/vendor/images/photo1.jpg" alt="">
-						</span>
-						<span class="user-name">{{DName.0}} {{DName.1}}</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-						<a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-						<a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-						<a class="dropdown-item" href="/sign_up"><i class="dw dw-logout"></i> Log Out</a>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
+      gtag("config", "UA-119386393-1");
+    </script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-left">
+        <div class="menu-icon dw dw-menu"></div>
+        <div
+          class="search-toggle-icon dw dw-search2"
+          data-toggle="header_search"
+        ></div>
+        <div class="header-search">
+          <form></form>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="user-info-dropdown">
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle"
+              href="#"
+              role="button"
+              data-toggle="dropdown"
+            >
+              <span class="user-icon">
+                <img src="../static/vendor/images/photo1.jpg" alt="" />
+              </span>
+              <span class="user-name">{{DName.0}} {{DName.1}}</span>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+            >
+              <a class="dropdown-item" href="profile.html"
+                ><i class="dw dw-user1"></i> Profile</a
+              >
+              <a class="dropdown-item" href="profile.html"
+                ><i class="dw dw-settings2"></i> Setting</a
+              >
+              <a class="dropdown-item" href="faq.html"
+                ><i class="dw dw-help"></i> Help</a
+              >
+              <a class="dropdown-item" href="/sign_up"
+                ><i class="dw dw-logout"></i> Log Out</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<div class="left-side-bar" style="background: linear-gradient(to top right, white 0%, black 45%);">
-		<div class="brand-logo">
-			<a href="index.html">
-				<img src="../static/vendor/images/logo_free-file.png" alt="" class="light-logo" style="width:50px;">
-				<div style="padding-left: 30px;">Doctor</div>
-			</a>
-			<div class="close-sidebar" data-toggle="left-sidebar-close">
-				<i class="ion-close-round"></i>
-			</div>
-		</div>
-		<div class="menu-block customscroll">
-			<div class="sidebar-menu">
-				<ul id="accordion-menu">
-					<li>
-						<a href="calendar.html" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
-						</a>
-					</li>
-					
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-library"></span><span class="mtext">Tables</span>
-						</a>
-						<ul class="submenu">
-							
-							<li><a href="datatable.html">DataTables</a></li>
-						</ul>
-					</li>
-					
-					
-					<li>
-						<a href="/" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-invoice"></span><span class="mtext">Log out</span>
-						</a>
-					</li>
-					<li>
-						<div class="dropdown-divider"></div>
-					</li>
-					
-					
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="mobile-menu-overlay"></div>
+    <div
+      class="left-side-bar"
+      style="background: linear-gradient(to top right, white 0%, black 45%)"
+    >
+      <div class="brand-logo">
+        <a href="index.html">
+          <img
+            src="../static/vendor/images/logo_free-file.png"
+            alt=""
+            class="light-logo"
+            style="width: 50px"
+          />
+          <div style="padding-left: 30px">Doctor</div>
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+          <i class="ion-close-round"></i>
+        </div>
+      </div>
+      <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+          <ul id="accordion-menu">
+            <li>
+              <a href="calendar.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-house-1"></span
+                ><span class="mtext">Home</span>
+              </a>
+            </li>
 
-	<div class="main-container">
-		<div class="pd-ltr-20 xs-pd-20-10">
-			<div class="min-height-200px">
-				<!-- Simple Datatable start -->
-				<div class="card-box mb-30">
-					<div class="pd-20">
-						<h4 class="text-blue h4">Doctor {{DName.0}} Data Table</h4>
-						</div>
-					<div class="pb-20">
-						<table class="table stripe">
-							<thead>
-								<tr>
-									<th class="table-plus datatable-nosort">SSN</th>
-									<th>First name</th>
-									<th>Last name</th>
-									<th>Age</th>
-									<th>Gender</th>
-									<th>Condition</th>
-									<th>Room no.</th>
-									<th>Entry_Date</th>
-									<th class="datatable-nosort">Modify</th>
-									<th class="datatable-nosort">Write prescription</th>
-								</tr>
-							</thead>
-							<tbody>
-							{% for r in data %}
-								<tr>
-									<td>{{r.1}}</td>
-									<td class="table-plus">{{r.2}} </td>
-									<td class="table-plus">{{r.4}} </td>
-									<td>{{r.5}}</td>
-									<td>{{r.6}}</td>
-									<td>{{r.12}} </td>
-									<td>{{r.10}}</td>
-									<td>{{r.8}}</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="icon-copy dw dw-notepad-2"></i> Add Prescription</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-								{% endfor %}
+            <li class="dropdown">
+              <a href="javascript:;" class="dropdown-toggle">
+                <span class="micon dw dw-library"></span
+                ><span class="mtext">Tables</span>
+              </a>
+              <ul class="submenu">
+                <li><a href="datatable.html">DataTables</a></li>
+              </ul>
+            </li>
 
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-	<!-- js -->
-	<script src="../static/vendor/scripts/core.js"></script>
-	<script src="../static/vendor/scripts/script.min.js"></script>
-	<script src="../static/vendor/scripts/process.js"></script>
-	<script src="../static/vendor/scripts/layout-settings.js"></script>
-	<script src="../static/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../static/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="../static/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="../static/datatables/js/responsive.bootstrap4.min.js"></script>
-	<!-- buttons for Export datatable -->
-	<script src="../static/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="../static/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="../static/datatables/js/buttons.print.min.js"></script>
-	<script src="../static/datatables/js/buttons.html5.min.js"></script>
-	<script src="../static/datatables/js/buttons.flash.min.js"></script>
-	<script src="../static/datatables/js/pdfmake.min.js"></script>
-	<script src="../static/datatables/js/vfs_fonts.js"></script>
-	<!-- Datatable Setting js -->
-	<script src="../static/vendor/scripts/datatable-setting.js"></script></body>
+            <li>
+              <a href="/" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-invoice"></span
+                ><span class="mtext">Log out</span>
+              </a>
+            </li>
+            <li>
+              <div class="dropdown-divider"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-menu-overlay"></div>
+
+    <div class="main-container">
+      <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+          <!-- Simple Datatable start -->
+          <div class="card-box mb-30">
+            <div class="pd-20">
+              <h4 class="text-blue h4">Doctor {{DName.0}} Data Table</h4>
+            </div>
+            <div class="pb-20">
+              <table class="table stripe">
+                <thead>
+                  <tr>
+                    <th class="table-plus datatable-nosort">SSN</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Condition</th>
+                    <th>Room no.</th>
+                    <th>Entry_Date</th>
+                    <th class="datatable-nosort">Modify</th>
+                    <th class="datatable-nosort">Write prescription</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for r in data %}
+                  <tr>
+                    <td>{{r.1}}</td>
+                    <td class="table-plus">{{r.2}}</td>
+                    <td class="table-plus">{{r.4}}</td>
+                    <td>{{r.5}}</td>
+                    <td>{{r.6}}</td>
+                    <td>{{r.12}}</td>
+                    <td>{{r.10}}</td>
+                    <td>{{r.8}}</td>
+                    <td>
+                      <div class="dropdown">
+                        <a
+                          class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                          href="#"
+                          role="button"
+                          data-toggle="dropdown"
+                        >
+                          <i class="dw dw-more"></i>
+                        </a>
+                        <div
+                          class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+                        >
+                          <a class="dropdown-item" href="#"
+                            ><i class="dw dw-delete-3"></i> Delete</a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="dropdown">
+                        <a
+                          class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                          href="#"
+                          role="button"
+                          data-toggle="dropdown"
+                        >
+                          <i class="dw dw-more"></i>
+                        </a>
+                        <div
+                          class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+                        >
+                          <a class="dropdown-item" id="nor" href="#"
+                            ><i class="icon-copy dw dw-notepad-2"></i> Add
+                            Prescription</a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("nor").addEventListener("click", function () {
+        (async () => {
+          const { value: text } = await Swal.fire({
+            input: "textarea",
+            inputLabel: "Message",
+            inputPlaceholder: "Type your message here...",
+            inputAttributes: {
+              "aria-label": "Type your message here",
+            },
+            showCancelButton: true,
+          });
+
+          if (text) {
+            Swal.fire(text);
+          }
+        })();
+      });
+    </script>
+    <!-- js -->
+    <script src="../static/vendor/scripts/core.js"></script>
+    <script src="../static/vendor/scripts/script.min.js"></script>
+    <script src="../static/vendor/scripts/process.js"></script>
+    <script src="../static/vendor/scripts/layout-settings.js"></script>
+    <script src="../static/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../static/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../static/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="../static/datatables/js/responsive.bootstrap4.min.js"></script>
+    <!-- buttons for Export datatable -->
+    <script src="../static/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="../static/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="../static/datatables/js/buttons.print.min.js"></script>
+    <script src="../static/datatables/js/buttons.html5.min.js"></script>
+    <script src="../static/datatables/js/buttons.flash.min.js"></script>
+    <script src="../static/datatables/js/pdfmake.min.js"></script>
+    <script src="../static/datatables/js/vfs_fonts.js"></script>
+    <!-- Datatable Setting js -->
+    <script src="../static/vendor/scripts/datatable-setting.js"></script>
+  </body>
 </html>
