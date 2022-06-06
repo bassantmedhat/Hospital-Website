@@ -54,12 +54,17 @@ def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patien
       val=(PSSn,)
       mycursor.execute(sql, val)
       id = mycursor.fetchone()[0]
+      print('this is the ssn',PSSn)
+      print('This is the id')
+      print(id)
       patient="INSERT INTO relatives(id,SSn,Fname,Lname,gender) VALUES ((select ID from patients where ID=%s),%s,%s,%s,%s)"
       value=(id,SSn,name,last_name,gender)
       mycursor.execute(patient,value)
+      print('done r')
       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
       val=(id,name, phone)
       mycursor.execute(sql, val)
+      print('done rp')
    mydb.commit()
 
 
@@ -199,9 +204,18 @@ def add_patient():
       print('done successfully')
       return render_template('admin_home.html',Name=AdminName)
 def patient_data(name,last_name,Rname,Remail,Rlast_name,entry_date,PSSn,age,room_no,gender):
-   sql='insert into patients(Fname,Lname,PSSn,age,gender,entry_date) values(%s,%s,%s,%s,%s,%s)'
-   value=(name,last_name,PSSn,age,gender,entry_date)
+   sql='insert into patients(Fname,Lname,PSSn,age,gender,entry_date,room_number) values(%s,%s,%s,%s,%s,%s)'
+   value=(name,last_name,PSSn,age,gender,entry_date, room_no)
    mycursor.execute(sql,value)
+   #if we want to add relative we can use this
+   # RelId='select id from patients where pssn=%s'
+   # IdVal=(PSSn,)
+   # mycursor.execute(RelId, IdVal)
+   # id=mycursor.fetchone()
+   # print(id)
+   # relativeData = 'insert into relative(id, fname, lname) values (%s, %s, %s)'
+   # relval=(id,Rname, Rlast_name)
+   # mycursor.execute(relativeData, relval)
    mydb.commit()
 
 @app.route('/sign_in',methods=['GET','POST'])
