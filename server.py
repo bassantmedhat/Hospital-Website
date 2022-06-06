@@ -11,6 +11,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 AdminName = []
 pssn = 0
+ssn = 0
 
 def check_password(email,password):
    sql='select password from email where email =%s'
@@ -32,6 +33,19 @@ def check_account(email):
    else :
       return True
 
+def Check_SSN(ssn):
+   sql='select pssn from patients where pssn=%s'
+   val=(ssn,)
+   mycursor.execute(sql, val)
+   pSsnCheck=mycursor.fetchone()
+   sql = 'select ssn from email where ssn=%s'
+   val = (ssn,)
+   mycursor.execute(sql, val)
+   SsnCheck = mycursor.fetchone()
+   if(SsnCheck==None and pSsnCheck==None):
+      return True
+   else:
+      return False
 
 def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patient"):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
@@ -186,40 +200,10 @@ def sign_up():
    else:
       return render_template('sign_up.html')
 
-@app.route('/add_patient',methods=['GET','POST'])
-def add_patient():
-   if(request.method=='POST'):
-      global AdminName
-      name = request.form['name']
-      last_name = request.form['last_name']
-      Rname = request.form['Rname']
-      Remail = request.form['email']
-      Rlast_name = request.form['Rlast_name']
-      entry_date = request.form['entry']
-      PSSn = request.form['SSN']
-      age = request.form['age']
-      room_no = request.form['room_no']
-      gender=request.form['gander']
-      patient_data(name,last_name,Rname,Remail,Rlast_name,entry_date,PSSn,age,room_no,gender)
-      print('done successfully')
-      return render_template('admin_home.html',Name=AdminName)
-def patient_data(name,last_name,Rname,Remail,Rlast_name,entry_date,PSSn,age,room_no,gender):
-   sql='insert into patients(Fname,Lname,PSSn,age,gender,entry_date,room_number) values(%s,%s,%s,%s,%s,%s)'
-   value=(name,last_name,PSSn,age,gender,entry_date, room_no)
-   mycursor.execute(sql,value)
-   #if we want to add relative we can use this
-   # RelId='select id from patients where pssn=%s'
-   # IdVal=(PSSn,)
-   # mycursor.execute(RelId, IdVal)
-   # id=mycursor.fetchone()
-   # print(id)
-   # relativeData = 'insert into relative(id, fname, lname) values (%s, %s, %s)'
-   # relval=(id,Rname, Rlast_name)
-   # mycursor.execute(relativeData, relval)
-   mydb.commit()
 
 @app.route('/sign_in',methods=['GET','POST'])
 def sign_in():
+   global AdminName, dat, Dnam
    if(request.method=='POST'):
       email=request.form['your_name']
       password=request.form['your_pass']
@@ -244,16 +228,20 @@ def sign_in():
                return render_template('Patient.html', data=data[1], relData=relData, Rphone=Rphone[0], email=email)
          elif (data[0] == 'doctor'):
              data=doctor_Patients(email)
-             sql='select fname, lname from doctors where dssn=%s'
+             sql='select fname, lname, id from doctors where dssn=%s'
              val=(data[-1],)
              mycursor.execute(sql, val)
              Dname=mycursor.fetchone()
+             Dnam = Dname
+             dat=data
              print(data)
-             return render_template('datatable.html', data=data[1:], DName=Dname)
+             if(data[1]==None):
+                return render_template('datatable.html', DName=Dname)
+             else:
+               return render_template('datatable.html', data=data[1:], DName=Dname)
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
-            global AdminName
                #Code for getting the name of the admin and render it on the page
             sql="select ssn from email where email=%s"
             val=(email,)
@@ -276,6 +264,63 @@ def sign_in():
    else :
       return render_template('sign_up.html')
 
+@app.route('/writeprescriotion', methods=['POST', 'GET'])
+def WP():
+   if(request.method=='POST'):
+      global dat
+      global Dnam
+      dID= Dnam[2]
+      # DID = request.form['DID']
+      PID = request.form['PID']
+      prescription =request.form['Pres']
+      sql = 'insert into write_Prescription_for (DID,PID,Prescription) values (%s,%s,%s)'
+      val=(dID, PID, prescription)
+      mycursor.execute(sql, val)
+      mydb.commit()
+      print('From WR', PID, dID, prescription)
+      if(PID):
+         return render_template('datatable.html', data=dat[1:], DName=Dnam)
+      else:
+         return('Very sad Anyway')
+@app.route('/add_patient',methods=['GET','POST'])
+def add_patient():
+   global AdminName
+   if(request.method=='POST'):
+      name = request.form['name']
+      last_name = request.form['last_name']
+      Doctor_id = request.form['doc-id']
+      disease = request.form['disease']
+      entry_date = request.form['entry']
+      PSSn = request.form['SSN']
+      age = request.form['age']
+      room_no = request.form['room_no']
+      gender=request.form['gander']
+      if(Check_SSN(PSSn)):
+         patient_data(name,last_name,Doctor_id,disease,entry_date,PSSn,age,room_no,gender)
+         print('done successfully')
+         return render_template('admin_home.html',Name=AdminName[0]+' ' + AdminName[1])
+      else:
+         print("not correct")
+         res = "This SSN is already exist "
+         return render_template("addpatientform.html", res=res)
+def patient_data(name,last_name,Doc_id,disease,entry_date,PSSn,age,room_no,gender):
+   sql='insert into patients(Fname,Lname,PSSn,age,gender,entry_date,room_number) values(%s,%s,%s,%s,%s,%s,%s)'
+   value=(name,last_name,PSSn,age,gender,entry_date, room_no)
+   mycursor.execute(sql,value)
+   Id='select id from patients where pssn=%s'
+   Val=(PSSn,)
+   mycursor.execute(Id, Val)
+   Pid=mycursor.fetchone()
+   print(Pid)
+   sql='insert into examine (Pid, Did) values (%s,%s)'
+   val=(Pid[0],Doc_id)
+   mycursor.execute(sql,val)
+   Add_to_Disease(Pid[0],disease,PSSn)
+   mydb.commit()
+def Add_to_Disease(id,disease,pssn):
+   sql='insert into disease(id,pssn,disease) values (%s,%s,%s)'
+   val=(id,pssn,disease)
+   mycursor.execute(sql,val)
 #this function for selecting the page for data
 @app.route("/add_member/<type>", methods=['POST', 'GET'])
 def add_member(type):
@@ -287,7 +332,7 @@ def add_member(type):
 #This code is for generating the data of the members according to position
 @app.route('/show_member/<position>', methods=['GET','POST'])
 def show_member(position):
-   global pssn
+   global ssn, pssn
    global AdminName
    if (request.method == 'POST'):
       print(position)
@@ -298,6 +343,14 @@ def show_member(position):
          mycursor.execute(sql)
          PData = mycursor.fetchall()
          if(pssn != 0 ):
+            sql='select id from patients where pssn=%s'
+            val=(pssn,)
+            mycursor.execute(sql, val)
+            pid = mycursor.fetchone()[0]
+            print(pid)
+            Examine='delete from examine where Pid=%s'
+            ExamineVal=(pid,)
+            mycursor.execute(Examine,ExamineVal)
             sql = 'DELETE FROM patients WHERE pssn=%s '
             val=(pssn,)
             mycursor.execute('SET FOREIGN_KEY_CHECKS=0')
@@ -306,17 +359,49 @@ def show_member(position):
             mydb.commit()
          return render_template('app-calendar.html', data=PData)
       elif (position == 'nurse'):
+         ssn = request.form['ssn']
          sql = 'select * from nurses'
          mycursor.execute(sql)
          NData = mycursor.fetchall()
          print(NData)
+         if (ssn != 0):
+            sql = 'select id from nurses where nssn=%s'
+            val = (ssn,)
+            mycursor.execute(sql, val)
+            nid = mycursor.fetchone()
+            print(nid)
+            # Examine = 'delete from examine where Pid=%s'
+            # ExamineVal = (nid[0],)
+            # mycursor.execute(Examine, ExamineVal)
+            sql = 'DELETE FROM nurses WHERE nssn=%s '
+            val = (ssn,)
+            mycursor.execute('SET FOREIGN_KEY_CHECKS=0')
+            mycursor.execute(sql, val)
+            mycursor.execute('SET FOREIGN_KEY_CHECKS=1')
+            mydb.commit()
          return render_template('app-chat.html', data=NData)
       elif (position == 'doctor'):
+         ssn = request.form['ssn']
          sql = 'select * from doctors'
          mycursor.execute(sql)
          DData = mycursor.fetchall()
          print('*' * 30)
          print(AdminName)
+         if (ssn != 0):
+            sql = 'select id from doctors where dssn=%s'
+            val = (ssn,)
+            mycursor.execute(sql, val)
+            did = mycursor.fetchone()
+            print(did)
+            Examine = 'delete from examine where did=%s'
+            ExamineVal = (did[0],)
+            mycursor.execute(Examine, ExamineVal)
+            sql = 'DELETE FROM doctors WHERE dssn=%s '
+            val = (ssn,)
+            mycursor.execute('SET FOREIGN_KEY_CHECKS=0')
+            mycursor.execute(sql, val)
+            mycursor.execute('SET FOREIGN_KEY_CHECKS=1')
+            mydb.commit()
          return render_template('ticket-list.html', data=DData)
       elif (position == 'admin'):
          return render_template('admin_home.html', Name=AdminName[0] + ' ' + AdminName[1])
@@ -328,20 +413,20 @@ def show_member(position):
          sql = 'select * from patients'
          mycursor.execute(sql)
          PData=mycursor.fetchall()
-         return render_template('app-calendar.html', data=PData)
+         return render_template('app-calendar.html', data=PData, Name=AdminName[0]+' '+AdminName[1])
       elif(position=='nurse'):
          sql = 'select * from nurses left outer join email on Nssn=SSn'
          mycursor.execute(sql)
          NData = mycursor.fetchall()
          print(NData)
-         return render_template('app-chat.html', data=NData)
+         return render_template('app-chat.html', data=NData, Name=AdminName[0]+' '+AdminName[1])
       elif(position=='doctor'):
          sql = 'select * from doctors'
          mycursor.execute(sql)
          DData = mycursor.fetchall()
          print('*' * 30)
          print(AdminName)
-         return render_template('ticket-list.html', data=DData)
+         return render_template('ticket-list.html', data=DData, Name=AdminName[0]+' '+AdminName[1])
       elif (position == 'admin'):
          return render_template('admin_home.html', Name=AdminName[0]+' '+AdminName[1])
       return render_template('index.html')

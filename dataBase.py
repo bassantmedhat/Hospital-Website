@@ -7,6 +7,10 @@ mydb = mysql.connector.connect(
   database="ICU"
 )
 mycursor = mydb.cursor()
+mycursor.execute("CREATE TABLE write_Prescription_for (n int auto_increment, DID INT ,PID INT, Prescription varchar(255), primary key (n) )")
+print('done')
+
+# mycursor.execute("CREATE TABLE disease(id int,FOREIGN KEY (ID) REFERENCES patients(ID),Pssn bigint unsigned,FOREIGN KEY (Pssn) REFERENCES patients(pssn),disease varchar(256) )")
 # done
 '''
 mycursor.execute("CREATE DATABASE ICU")
@@ -69,5 +73,5 @@ mycursor.execute("CREATE DATABASE ICU")
 # mycursor.execute('SHOW DATABASES')
 # for x in mycursor:
 #   print(x)
-mycursor.execute("select * from patients")
-print(mycursor.fetchall())
+# mycursor.execute("select * from patients")
+# print(mycursor.fetchall())

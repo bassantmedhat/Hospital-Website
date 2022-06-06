@@ -108,7 +108,7 @@
                                 <img src="../static/assets/images/users/profile-pic.jpg" alt="user"
                                     class="rounded-circle" width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">salah</span> <i data-feather="chevron-down"
+                                        class="text-dark">{{Name}}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -245,7 +245,7 @@
                                                 <td>{{r.1}}</td>
 
                                                 <td><input class="col-12 btn btn-primary" type="button" value="Delete"
-                                                        onclick="deleteRow(this)" href="/delete_data"></td>
+                                        onclick="openForm()" id="show"></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -262,6 +262,25 @@
                                         <!--                                            </tr>-->
                                         <!--                                        </tfoot>-->
                                     </table>
+                                    <div id="myDIV" style="display: none;" class="form-inline">
+    <form action='/show_member/nurse#' method="post" >
+         <div class="form-group">
+            <input type="text" placeholder="Type SSN" name="ssn" class="form-control" >
+            <input type="submit" name="signup" id="signup" class="btn btn-outline-primary" value="Done" onclick="closeForm(this)" />
+         </div>
+    </form>
+</div>
+<script>
+function openForm() {
+  document.getElementById("myDIV").style.display = "block";
+}
+
+function closeForm(r) {
+  document.getElementById("myDIV").style.display = "none";
+    var i = r.parentNode.parentNode.rowIndex;
+  document.getElementById("zero_config").deleteRow(i);
+}
+</script>
                                     <script>
                                         function deleteRow(r) {
                                             var i = r.parentNode.parentNode.rowIndex;

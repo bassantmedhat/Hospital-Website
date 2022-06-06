@@ -109,7 +109,7 @@
                                 <img src="../static/assets/images/users/profile-pic.jpg" alt="user"
                                     class="rounded-circle" width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Hamdy</span> <i data-feather="chevron-down"
+                                        class="text-dark">{{Name}}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -265,10 +265,12 @@
                             <!--                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>-->
                             <!--                                            </tr>-->
 
-<div id="myDIV" style="display: none;" >
-    <form action='#' method="post" >
-<input type="text" placeholder="Type SSN" name="pssn">
-        <input type="submit" name="signup" id="signup" class="form-submit" value="Done" onclick="closeForm()" />
+<div id="myDIV" style="display: none;" class="form-inline">
+    <form action='/show_member/patient#' method="post" >
+        <div class="form-group">
+<input type="text" placeholder="Type SSN" name="pssn" class="form-control" >
+        <input type="submit" name="signup" id="signup" class="btn btn-outline-primary" value="Done" onclick="closeForm(this)" />
+            </div>
     </form>
 </div>
                             <script>
@@ -276,8 +278,10 @@
   document.getElementById("myDIV").style.display = "block";
 }
 
-function closeForm() {
+function closeForm(r) {
   document.getElementById("myDIV").style.display = "none";
+    var i = r.parentNode.parentNode.rowIndex;
+  document.getElementById("zero_config").deleteRow(i);
 }
 </script>
                         </tfoot>

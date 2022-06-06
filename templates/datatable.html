@@ -185,11 +185,13 @@
           <div class="card-box mb-30">
             <div class="pd-20">
               <h4 class="text-blue h4">Doctor {{DName.0}} Data Table</h4>
+              <h6 class="text-blue h6">Your Id is = {{DName.2}}</h6>
             </div>
             <div class="pb-20">
               <table class="table stripe">
                 <thead>
                   <tr>
+                    <th class="table-plus datatable-nosort">ID</th>
                     <th class="table-plus datatable-nosort">SSN</th>
                     <th>First name</th>
                     <th>Last name</th>
@@ -198,13 +200,14 @@
                     <th>Condition</th>
                     <th>Room no.</th>
                     <th>Entry_Date</th>
-                    <th class="datatable-nosort">Modify</th>
+<!--                    <th class="datatable-nosort">Modify</th>-->
                     <th class="datatable-nosort">Write prescription</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for r in data %}
                   <tr>
+                    <td>{{r.0}}</td>
                     <td>{{r.1}}</td>
                     <td class="table-plus">{{r.2}}</td>
                     <td class="table-plus">{{r.4}}</td>
@@ -213,49 +216,63 @@
                     <td>{{r.12}}</td>
                     <td>{{r.10}}</td>
                     <td>{{r.8}}</td>
+<!--                    <td>-->
+<!--                      <div class="dropdown">-->
+<!--                        <a-->
+<!--                          class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"-->
+<!--                          href="#"-->
+<!--                          role="button"-->
+<!--                          data-toggle="dropdown">-->
+<!--                          <i class="dw dw-more"></i>-->
+<!--                        </a>-->
+<!--                        <div-->
+<!--                          class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"-->
+<!--                        >-->
+<!--                          <a class="dropdown-item" href="#"-->
+<!--                            ><i class="dw dw-delete-3"></i> Delete</a-->
+<!--                          >-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </td>-->
                     <td>
                       <div class="dropdown">
                         <a
                           class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
                           href="#"
                           role="button"
-                          data-toggle="dropdown"
-                        >
+                          data-toggle="dropdown">
                           <i class="dw dw-more"></i>
                         </a>
                         <div
-                          class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
-                        >
-                          <a class="dropdown-item" href="#"
-                            ><i class="dw dw-delete-3"></i> Delete</a
-                          >
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="dropdown">
-                        <a
-                          class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                          href="#"
-                          role="button"
-                          data-toggle="dropdown"
-                        >
-                          <i class="dw dw-more"></i>
-                        </a>
-                        <div
-                          class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
-                        >
-                          <a class="dropdown-item" id="nor" href="#"
+                          class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                          <a class="dropdown-item" id="or" href="#" onclick="openForm()"
                             ><i class="icon-copy dw dw-notepad-2"></i> Add
-                            Prescription</a
-                          >
+                            Prescription</a>
                         </div>
                       </div>
                     </td>
                   </tr>
                   {% endfor %}
                 </tbody>
+                    <button onclick="openForm()" class="btn btn-primary" hidden >Hello there</button>
               </table>
+                              <!--Poping box code-->
+                <div id="myDIV" style="display: none;" class="form-inline" style="padding-bottom:20px;">
+                  <form action='/writeprescriotion' method="post" >
+                        <div class="form-group">
+                          <input type="text" placeholder="Type Patient's ID" name="PID" class="form-control" >
+<!--                          <input type="text" placeholder="Type Your ID" name="DID" class="form-control" >-->
+                          <br>
+                              <div class="form-group">
+                          <b>Write your prescription</b>
+                          <input type="text" placeholder="Type Prescription" name="Pres" class="form-control" >
+                          <input type="submit" name="signup" id="signup"
+                                 class="btn btn-outline-primary" value="Done" onclick="closeForm(this)" />
+                              </div>
+                        </div>
+                  </form>
+              </div>
+              <!--Popping box-->
             </div>
           </div>
         </div>
@@ -263,12 +280,28 @@
     </div>
 
     <script>
-      document.getElementById("nor").addEventListener("click", function () {
+
+function openForm() {
+  document.getElementById("myDIV").style.display = "block";
+}
+
+function closeForm(r) {
+  document.getElementById("myDIV").style.display = "none";
+    var i = r.parentNode.parentNode.rowIndex;
+  document.getElementById("zero_config").deleteRow(i);
+}
+  </script>
+
+    <script>
+    var request = new XMLHttpRequest();
+    request.open('POST', '/', true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = document.getElementById("nor").addEventListener("click", function () {
         (async () => {
           const { value: text } = await Swal.fire({
             input: "textarea",
             inputLabel: "Message",
-            inputPlaceholder: "Type your message here...",
+            inputPlaceholder: "Type your Prescription here...",
             inputAttributes: {
               "aria-label": "Type your message here",
             },
@@ -280,6 +313,7 @@
           }
         })();
       });
+      request.send('Val=' + value);
     </script>
     <!-- js -->
     <script src="../static/vendor/scripts/core.js"></script>
@@ -300,5 +334,7 @@
     <script src="../static/datatables/js/vfs_fonts.js"></script>
     <!-- Datatable Setting js -->
     <script src="../static/vendor/scripts/datatable-setting.js"></script>
+
+
   </body>
 </html>

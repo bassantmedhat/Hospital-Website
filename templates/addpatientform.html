@@ -89,6 +89,9 @@
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="number" name="SSN" required min="0">
+                                    {% if res %}
+                                    <p class="error" style="color: rgb(184, 35, 35);"><strong>Error:</strong> {{ res }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -172,8 +175,9 @@
                         </div> -->
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
+                            <a href= {{url_for("show_member",position='admin' )}}>
                             <button class="btn btn--radius-2 btn--red" type="button"
-                                style="margin-left: 30%;">back</button>
+                                    style="margin-left: 30%;">back</button></a>
                             </a>
                         </div>
                     </form>
