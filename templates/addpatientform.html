@@ -32,22 +32,22 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">new friend</h2>
+                    <h2 class="title">New Patient</h2>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="/add_patient">
-                    <!-- <form method="POST" href={{url_for("add_member",type='sign_up' )}}></form> -->
+                        <!-- <form method="POST" href={{url_for("add_member",type='sign_up' )}}></form> -->
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-<!-- <<<<<<< Updated upstream -->
-                                        <!-- <input class="input--style-5" type="text" name="first_name" required> -->
-<!-- ======= -->
+                                            <!-- <<<<<<< Updated upstream -->
+                                            <!-- <input class="input--style-5" type="text" name="first_name" required> -->
+                                            <!-- ======= -->
                                             <input class="input--style-5" type="text" name="name" required>
-<!-- >>>>>>> Stashed changes -->
+                                            <!-- >>>>>>> Stashed changes -->
                                             <label class="label--desc">first name</label>
                                         </div>
                                     </div>
@@ -57,39 +57,6 @@
                                             <label class="label--desc">last name</label>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                        <div class="form-row m-b-55">
-                            <div class="name">Relatives</div>
-                            <div class="value">
-                                <div class="row row-space">
-                                    <div class="col-2">
-                                        <div class="input-group-desc">
-<!-- <<<<<<< Updated upstream -->
-                                        <!-- <input class="input--style-5" type="text" name="first_name" required> -->
-<!-- ======= -->
-                                            <input class="input--style-5" type="text" name="Rname" required>
-<!-- >>>>>>> Stashed changes -->
-                                            <label class="label--desc">first name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="Rlast_name" required>
-                                            <label class="label--desc">last name</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                        <div class="form-row">
-                            <div class="name"> Relative's Email</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email" >
                                 </div>
                             </div>
                         </div>
@@ -129,8 +96,7 @@
                             <div class="name">Entry date</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="date" name="entry" required
-                                    style="padding:0; padding-left: 20px;
+                                    <input class="input--style-5" type="date" name="entry" required style="padding:0; padding-left: 20px;
                                     padding-right: 20px;">
                                 </div>
                             </div>
@@ -141,6 +107,22 @@
                                 <div class="input-group">
                                     <input class="input--style-5" type="number" name="room_no" required min="0">
                                     <input type="text" name="PSSn" id="PSSn" value="1" hidden>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Doctor-Id</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="number" name="doc-id" required min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Disease</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="text" name="disease" required>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +145,7 @@
                             <label class="label label--block">position</label>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-55">Vice admin -->
-<!-- <<<<<<< Updated upstream
+                        <!-- <<<<<<< Updated upstream
                                     <input type="radio" checked="checked" name="exist" required>
                                     <span class="checkmark"></span>
                                 </label>
@@ -173,8 +155,8 @@
                                 </label>
                                 <label class="radio-container">nurse
                                     <input type="radio" name="exist" required> -->
-<!-- ======= -->
-                                    <!-- <input type="radio" checked="checked" name="position" value="admin" required>
+                        <!-- ======= -->
+                        <!-- <input type="radio" checked="checked" name="position" value="admin" required>
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container m-r-55">doctor
@@ -183,15 +165,15 @@
                                 </label>
                                 <label class="radio-container">nurse
                                     <input type="radio" name="position"value = "nurse"required> -->
-<!-- >>>>>>> Stashed changes -->
-                                    <!-- <span class="checkmark"></span>
+                        <!-- >>>>>>> Stashed changes -->
+                        <!-- <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div> -->
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
-                                <button class="btn btn--radius-2 btn--red" type="button"
-                                    style="margin-left: 30%;">back</button>
+                            <button class="btn btn--radius-2 btn--red" type="button"
+                                style="margin-left: 30%;">back</button>
                             </a>
                         </div>
                     </form>
