@@ -249,7 +249,7 @@
                                 <td>{{r.10}}</td>
                                 <td>{{r.11}}</td>
                                 <td><input class="col-12 btn btn-primary" type="button" value="Delete"
-                                        onclick="deleteRow(this)"></td>
+                                        onclick="openForm()" id="show"></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -264,6 +264,22 @@
                             <!--                                                <th>Agent</th>-->
                             <!--                                                <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>-->
                             <!--                                            </tr>-->
+
+<div id="myDIV" style="display: none;" >
+    <form action='#' method="post" >
+<input type="text" placeholder="Type SSN" name="pssn">
+        <input type="submit" name="signup" id="signup" class="form-submit" value="Done" onclick="closeForm()" />
+    </form>
+</div>
+                            <script>
+                            function openForm() {
+  document.getElementById("myDIV").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myDIV").style.display = "none";
+}
+</script>
                         </tfoot>
                     </table>
                     <script>

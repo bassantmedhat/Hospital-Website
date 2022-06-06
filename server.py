@@ -9,6 +9,8 @@ mydb = mysql.connector.connect(
   database="ICU"
 )
 mycursor = mydb.cursor()
+AdminName = []
+pssn = 0
 
 def check_password(email,password):
    sql='select password from email where email =%s'
@@ -177,6 +179,7 @@ def sign_in():
          elif (data[0] == 'nurse'):
             return render_template('Nurse.html', data=data[1])
          elif(data[0]=='admin'):
+            global AdminName
                #Code for getting the name of the admin and render it on the page
             sql="select ssn from email where email=%s"
             val=(email,)
@@ -187,6 +190,7 @@ def sign_in():
             val=(AdSsn,)
             mycursor.execute(sql, val)
             AdName=mycursor.fetchone()
+            AdminName = AdName
             print(AdName)
             return render_template('admin_home.html', Name=AdName[0]+' '+AdName[1])
             # return render_template('admin_home.html', data=data[1])
@@ -208,11 +212,44 @@ def add_member(type):
 #This code is for generating the data of the members according to position
 @app.route('/show_member/<position>', methods=['GET','POST'])
 def show_member(position):
+   global pssn
+   global AdminName
    if (request.method == 'POST'):
+      print(position)
+      if (position == 'patient'):
+         pssn = request.form['pssn']
+         print( '#'*20, '\n', pssn)
+         sql = 'select * from patients'
+         mycursor.execute(sql)
+         PData = mycursor.fetchall()
+         if(pssn != 0 ):
+            sql = 'DELETE FROM patients WHERE pssn=%s '
+            val=(pssn,)
+            mycursor.execute('SET FOREIGN_KEY_CHECKS=0')
+            mycursor.execute(sql, val)
+            mycursor.execute('SET FOREIGN_KEY_CHECKS=1')
+            mydb.commit()
+         return render_template('app-calendar.html', data=PData)
+      elif (position == 'nurse'):
+         sql = 'select * from nurses'
+         mycursor.execute(sql)
+         NData = mycursor.fetchall()
+         print(NData)
+         return render_template('app-chat.html', data=NData)
+      elif (position == 'doctor'):
+         sql = 'select * from doctors'
+         mycursor.execute(sql)
+         DData = mycursor.fetchall()
+         print('*' * 30)
+         print(AdminName)
+         return render_template('ticket-list.html', data=DData)
+      elif (position == 'admin'):
+         return render_template('admin_home.html', Name=AdminName[0] + ' ' + AdminName[1])
       return render_template('index.html')
    else:
       print(position)
       if(position=='patient'):
+         print( '#'*20, '\n', pssn)
          sql = 'select * from patients'
          mycursor.execute(sql)
          PData=mycursor.fetchall()
@@ -227,9 +264,11 @@ def show_member(position):
          sql = 'select * from doctors'
          mycursor.execute(sql)
          DData = mycursor.fetchall()
+         print('*' * 30)
+         print(AdminName)
          return render_template('ticket-list.html', data=DData)
       elif (position == 'admin'):
-         return render_template('admin_home.html')
+         return render_template('admin_home.html', Name=AdminName[0]+' '+AdminName[1])
       return render_template('index.html')
 
 #Previnting to Cache the data like executing the back arrow

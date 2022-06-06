@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7151f6e2-524e-49bf-9215-f2b96449071f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/dist/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/css/style.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/app-calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/app-calendar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
