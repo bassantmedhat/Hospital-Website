@@ -257,19 +257,40 @@
                     <button onclick="openForm()" class="btn btn-primary" hidden >Hello there</button>
               </table>
                               <!--Poping box code-->
-                <div id="myDIV" style="display: none;" class="form-inline" style="padding-bottom:20px;">
-                  <form action='/writeprescriotion' method="post" >
-                        <div class="form-group">
-                          <input type="text" placeholder="Type Patient's ID" name="PID" class="form-control" >
-<!--                          <input type="text" placeholder="Type Your ID" name="DID" class="form-control" >-->
+                              
+                <div id="myDIV" style="display: none;" class="form-inline" style="padding-bottom:20px ; padding-left: 20%;">
+                  <form action='/writeprescriotion' method="post"  style="margin-left: 10%;"  >
+                    <div class="form-row">
+                      <div class="name">Patient's ID</div>
+                      <div class="value" style="margin-left: 20%;">
+                          <div class="input-group">
+                            <input type="text" placeholder="Type Patient's ID" name="PID" class="form-control" >
+                            <!-- <input type="text" placeholder="Type Your ID" name="DID" class="form-control" >-->
+                          </div>
+                      </div>
+                    </div>
+
                           <br>
-                              <div class="form-group">
-                          <b>Write your prescription</b>
-                          <input type="text" placeholder="Type Prescription" name="Pres" class="form-control" >
-                          <input type="submit" name="signup" id="signup"
-                                 class="btn btn-outline-primary" value="Done" onclick="closeForm(this)" />
-                              </div>
-                        </div>
+                          <div class="form-row" >
+                            <div class="name">Write your prescription</div>
+                            <div class="value" style="margin-left: 10%;">
+                                <div class="input-group">
+                                 
+                                  <input type="text" placeholder="Type Prescription" name="Pres" class="form-control" >
+                                  
+                                </div>
+                            </div>
+                          </div>
+                          <div class="form-row"  style="margin-left: 40%;">
+                            <div class="value">
+                                <div class="input-group">
+                                  <input type="submit" name="signup" id="signup" 
+                                  class="btn btn-outline-primary" value="Done" onclick="closeForm(this)" />
+                                </div>
+                            </div>
+                          </div>
+      
+                             
                   </form>
               </div>
               <!--Popping box-->
