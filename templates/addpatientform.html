@@ -76,6 +76,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- <input class="input--style-5" type="number" name="phone" required min="0" hidden> -->
                         <div class="form-row">
                             <div class="name">Age</div>
                             <div class="value">
@@ -110,6 +111,9 @@
                                 <div class="input-group">
                                     <input class="input--style-5" type="number" name="room_no" required min="0">
                                     <input type="text" name="PSSn" id="PSSn" value="1" hidden>
+                                    {% if res1 %}
+                                    <p class="error" style="color: rgb(184, 35, 35);"><strong>Error:</strong> {{ res1 }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -176,9 +180,9 @@
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
                             <a href= {{url_for("show_member",position='admin' )}}>
-                            <button class="btn btn--radius-2 btn--red" type="button"
-                                    style="margin-left: 30%;">back</button></a>
-                            </a>
+                                <button class="btn btn--radius-2 btn--red" type="button"
+                                        style="margin-left: 30%;">back</button></a>
+                                </a>
                         </div>
                     </form>
                 </div>

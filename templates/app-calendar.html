@@ -113,14 +113,6 @@
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                    My Profile</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                    Account Setting</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/sign_up"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
@@ -226,9 +218,7 @@
                                 <!--                                                <th>Email</th>-->
                                 <th>SSN</th>
                                 <th>Entry Date</th>
-                                <th>Status</th>
                                 <th>Room Number</th>
-                                <th>Cost</th>
                                 <th>Remove</th>
                             </tr>
                         </thead>
@@ -237,15 +227,13 @@
                             <tr>
                                 <td><span class="font-weight-medium link">{{r.0}}</span></td>
                                 <td><a href="javascript:void(0)" class="font-weight-medium link">{{r.2}}</a></td>
-                                <td><a href="javascript:void(0)" class="font-bold font-weight-medium link">{{r.4}}</a>
+                                <td><a href="javascript:void(0)" class="font-bold font-weight-medium link">{{r.3}}</a>
                                 </td>
-                                <td>{{r.6}}</td>
                                 <td>{{r.5}}</td>
+                                <td>{{r.4}}</td>
                                 <td>{{r.1}}</td>
+                                <td>{{r.6}}</td>
                                 <td>{{r.8}}</td>
-                                <td>{{r.12}}</td>
-                                <td>{{r.10}}</td>
-                                <td>{{r.11}}</td>
                                 <td><input class="col-12 btn btn-primary" type="button" value="Delete"
                                         onclick="openForm()" id="show"></td>
                             </tr>

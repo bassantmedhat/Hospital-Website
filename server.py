@@ -48,9 +48,9 @@ def Check_SSN(ssn):
    else:
       return False
 
-def check_room(room_no,Pssn):
-   sql='select room from patients where pssn=%s'
-   value=(Pssn,)
+def check_room(room_no):
+   sql='select room from patients where room=%s'
+   value=(room_no,)
    mycursor.execute(sql,value)
    result=mycursor.fetchone()
    if(result==None):
@@ -58,20 +58,20 @@ def check_room(room_no,Pssn):
    else:
       return False 
 
-def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patient"):
+def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patient",salary=2500):
    sql = "INSERT INTO Email (SSn,email,password,position) VALUES (%s,%s,%s,%s)"
    val=(SSn,email,password,position)
    mycursor.execute(sql,val)
    if(position=="doctor"):
-      doctor="INSERT INTO doctors (dssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
-      value=(SSn,name,last_name,age,gender)
+      doctor="INSERT INTO doctors (dssn,Fname,Lname,age,gender,salary) VALUES (%s,%s,%s,%s,%s,%s)"
+      value=(SSn,name,last_name,age,gender,salary)
       mycursor.execute(doctor,value)
    elif(position=="nurse"):
-      nurse="INSERT INTO nurses (Nssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
-      value=(SSn,name,last_name,age,gender)
+      nurse="INSERT INTO nurses (Nssn,Fname,Lname,age,gender,salary) VALUES (%s,%s,%s,%s,%s,%s)"
+      value=(SSn,name,last_name,age,gender,salary)
       mycursor.execute(nurse,value)
    elif(position=="admin"):
-      admin="INSERT INTO admin(ssn,Fname,Lname,age,gender) VALUES (%s,%s,%s,%s,%s)"
+      admin="INSERT INTO admin(ssn,Fname,Lname,age,gender,salary) VALUES (%s,%s,%s,%s,%s,%s)"
       value=(SSn,name,last_name,age,gender)
       mycursor.execute(admin,value)
    elif(position=='patient'):
@@ -79,13 +79,9 @@ def add(name,last_name,gender,age,SSn,PSSn,email,password,phone,position="patien
       val=(PSSn,)
       mycursor.execute(sql, val)
       id = mycursor.fetchone()[0]
-      print('this is the ssn',PSSn)
-      print('This is the id')
-      print(id)
       patient="INSERT INTO relatives(id,SSn,Fname,Lname,gender) VALUES ((select ID from patients where ID=%s),%s,%s,%s,%s)"
       value=(id,SSn,name,last_name,gender)
       mycursor.execute(patient,value)
-      print('done r')
       sql="INSERT INTO relative_phone(pid, relative_name, phone) values ((select ID from patients where ID=%s), %s, %s)"
       val=(id,name, phone)
       mycursor.execute(sql, val)
@@ -176,8 +172,12 @@ def sign_up():
          res = "Sorry but this email is used before"
          return render_template("sign_up.html", result=res)
       else :
+         global AdminName
          add(name, last_name, gender, age, SSn, PSSn, email, password, phone, position)
-         return render_template('index.html')
+         if(position=='doctor' or position =='nurse' or position =='admin'):
+           return render_template('admin_home.html',Name=AdminName[0]+' '+AdminName[1])
+         else:
+            return render_template('sign_up.html')
    else:
       return render_template('sign_up.html')
 
@@ -277,6 +277,8 @@ def WP():
          return render_template('datatable.html', data=dat[1:], DName=Dnam)
       else:
          return('Very sad Anyway')
+
+
 @app.route('/add_patient',methods=['GET','POST'])
 def add_patient():
    global AdminName
@@ -291,13 +293,13 @@ def add_patient():
       room_no = request.form['room_no']
       gender=request.form['gander']
       if(Check_SSN(PSSn)):
-         if(not(check_room(room_no,PSSn))):
+         if(not(check_room(room_no))):
             res = "Sorry this room is used"
-            return render_template("addpatientform.html", res=res)
-
-         patient_data(name,last_name,Doctor_id,disease,entry_date,PSSn,age,room_no,gender)
-         print('done successfully')
-         return render_template('admin_home.html',Name=AdminName[0]+' '+AdminName[1])
+            return render_template("addpatientform.html", res1=res)
+         else:
+          patient_data(name,last_name,Doctor_id,disease,entry_date,PSSn,age,room_no,gender)
+          print('done successfully')
+          return render_template('admin_home.html',Name=AdminName[0]+' '+AdminName[1])
       else:
          print("not correct")
          res = "This SSN is already exist "
@@ -323,6 +325,7 @@ def Add_to_Disease(id,disease,pssn):
    val=(id,pssn,disease)
    mycursor.execute(sql,val)
 #this function for selecting the page for data
+
 @app.route("/add_member/<type>", methods=['POST', 'GET'])
 def add_member(type):
    if(type=='sign_up'):
@@ -433,6 +436,7 @@ def show_member(position):
          DData = mycursor.fetchall()
          print('*' * 30)
          print(AdminName)
+         print(DData)
          return render_template('ticket-list.html', data=DData, Name=AdminName[0]+' '+AdminName[1])
       elif (position == 'admin'):
          return render_template('admin_home.html', Name=AdminName[0]+' '+AdminName[1])
