@@ -17,4 +17,6 @@ V.sign in / sign up page which new members fill to enter their account or make n
 
 VI. Home page which contains information about the department
 
-# how to run the code  
+# how to run the code 
+
+After running the code in the file named server.py we click on the link which appears at the output terminal which in turns opens the homepage of the website then if the user have an account he can click on log in icon located in the navigation bar which leads to the sign in page but and the relative to the patient can create new email if he have the patients ssn saved in the ICU 's database as an existed patient then after entering the data according to the user's position (patient,doctor,nurse,admin) each one of them has different page with different data to visualize.
