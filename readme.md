@@ -2,8 +2,7 @@
 ![alt text](https://github.com/Ms850446/icu_project/blob/main/ER1%20(2).png)
 
 # about the website
-## Our website is for ICU department..
-Its divided to 6 pages: 
+Our website is for ICU department Its divided to 6 pages: 
 
 I. one for Admin to track doctors , nurses and patients including to add and remove any one of them. 
 
