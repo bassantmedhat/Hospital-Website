@@ -19,7 +19,6 @@
 - <a href ="#Started"> 💻 Get Started</a>
 - <a href ="#Path"> 📷 Path of the program</a>
 - <a href ="#Contributors"> ✨ Contributors</a> 
-- <a href ="#License"> 🔒 License</a> 
 <hr style="background-color: #4b4c60"></hr>
 
 ## <img align="center"  width =60px  height =70px src="https://media2.giphy.com/media/Yn4nioYWSZMqiPNVuD/giphy.gif?cid=ecf05e47m5h78yoqhdkg8pq54o5qsxhdoltjxyfe08d4vxvg&rid=giphy.gif&ct=s"> Overview <a id = "about"></a>
