@@ -359,6 +359,24 @@ def show_member(position):
             Examine='delete from examine where Pid=%s'
             ExamineVal=(pid,)
             mycursor.execute(Examine,ExamineVal)
+
+            # sql='select Ssn from relatives where id=%s'
+            # value=(pid,)
+            # mycursor.execute(sql,value)
+            # result=mycursor.fetchone()
+            # print(result)
+            # sql='delete from email where ssn =%s'
+            # value=result
+            # mycursor.execute(sql,value)
+
+            relative='delete from relatives where id=%s'
+            value=(pid,)
+            mycursor.execute(relative,value) 
+
+            relative='delete from relative_phone where Pid=%s'
+            value=(pid,)
+            mycursor.execute(relative,value)        
+     
             sql = 'DELETE FROM patients WHERE id=%s '
             val=(pid,)
             mycursor.execute('SET FOREIGN_KEY_CHECKS=0')
@@ -382,6 +400,7 @@ def show_member(position):
             # # Examine = 'delete from examine where Pid=%s'
             # # ExamineVal = (nid[0],)
             # # mycursor.execute(Examine, ExamineVal)
+            
             sql = 'DELETE FROM nurses WHERE id=%s '
             val = (nid,)
             mycursor.execute('SET FOREIGN_KEY_CHECKS=0')
