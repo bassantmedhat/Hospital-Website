@@ -18,8 +18,6 @@
 - <a href ="#about"> 📙 overview</a>
 - <a href ="#Started"> 💻 Get Started</a>
 - <a href ="#Path"> 📷 Path of the program</a>
-<!-- - <a href ="#Video">  📽 GIF Demo</a> -->
-- <a href ="#Structure"> 📁  File Structure</a>
 - <a href ="#Contributors"> ✨ Contributors</a> 
 - <a href ="#License"> 🔒 License</a> 
 <hr style="background-color: #4b4c60"></hr>
@@ -85,7 +83,7 @@ you can go to the log in page by clicking on the log in icon on the right of the
 </ol>
 <hr style="background-color: #4b4c60"></hr>
 
-
+<!-- 
 ## <img align= "center" width=80px height=80px src="https://media2.giphy.com/media/dAu3qBzpmXstCTimDv/giphy.gif?cid=ecf05e475rq4hwxg7usfm1go2dc1pl5gpbnvo1izu6ph4yuh&rid=giphy.gif&ct=s"> Path of the program <a id ="Path"></a>
 
 <table>
@@ -206,7 +204,7 @@ you can go to the log in page by clicking on the log in icon on the right of the
      <td align="center"><img src="https://user-images.githubusercontent.com/71986226/177058423-38daca3d-3650-4c20-9926-dba802f4c330.png" width="500px;"/></td>
   </tr>
 </table>
-<hr style="background-color: #4b4c60"></hr>
+<hr style="background-color: #4b4c60"></hr> -->
 
 ### <img align= "center" width=50px height=60px src="https://media2.giphy.com/media/8pEnqbR2gapFekW4KK/giphy.gif?cid=ecf05e47ire2dp6wrcli5orn0gddraxve7sug4v3753pquxa&rid=giphy.gif&ct=s"> Notes
 <ol>
